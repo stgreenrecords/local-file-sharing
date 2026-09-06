@@ -7,7 +7,7 @@
  */
 import { createHash } from 'node:crypto'
 import { randomUUID } from 'node:crypto'
-import { Transform } from 'node:stream'
+import { Transform, type Readable } from 'node:stream'
 import type {
   ConflictPrompt,
   ConflictResolution,
@@ -341,15 +341,19 @@ export class TransferEngine {
     })
 
     let aborted = false
+    let readable: Readable | null = null
     try {
-      const readable = await source.read(unit.source.path)
+      // `stream` is the narrowed handle the closures capture; `readable` is the
+      // copy the `finally` uses to tear it down on every exit path.
+      const stream = await source.read(unit.source.path)
+      readable = stream
       this.activeAbort = () => {
         aborted = true
-        readable.destroy(new OmniError(ErrorCode.CANCELLED, 'Cancelled'))
+        stream.destroy(new OmniError(ErrorCode.CANCELLED, 'Cancelled'))
         meter.destroy(new OmniError(ErrorCode.CANCELLED, 'Cancelled'))
       }
-      readable.on('error', (err) => meter.destroy(err))
-      readable.pipe(meter)
+      stream.on('error', (err) => meter.destroy(err))
+      stream.pipe(meter)
 
       const result = await target.write(targetPath, meter, {
         size: unit.size,
@@ -395,6 +399,14 @@ export class TransferEngine {
       })
     } finally {
       this.activeAbort = null
+      // Release the descriptor and the buffered window on *every* exit path.
+      // A rejected `target.write` used to leave the source still piped into a
+      // meter that nobody drains: the fd stayed open and a full
+      // `bufferWindowBytes` stayed reachable for the life of the process, so a
+      // batch that failed part-way — a peer resetting the connection, say —
+      // leaked a window per file until the machine ran out of memory.
+      readable?.destroy()
+      meter.destroy()
     }
   }
 
@@ -445,7 +457,14 @@ export class TransferEngine {
     })
   }
 
-  private patchJob(jobId: string, changes: Partial<TransferJob>, immediate = true): void {
+  /**
+   * `immediate` is opt-in: `snapshot()` copies every job and batch, so emitting
+   * one per job transition made a batch cost O(files^2) in allocation and shipped
+   * the whole job list over IPC thousands of times. Queue state is not worth a
+   * sub-100 ms guarantee; the throttle in `emit` coalesces the bursts, and
+   * `pump` still emits immediately once the queue drains.
+   */
+  private patchJob(jobId: string, changes: Partial<TransferJob>, immediate = false): void {
     const job = this.jobs.get(jobId)
     if (job === undefined) return
     this.jobs.set(jobId, { ...job, ...changes })
