@@ -75,10 +75,35 @@ export function fromErrno(err: unknown, fallbackMessage: string): OmniError {
     case 'ENOSPC':
       return new OmniError(ErrorCode.NO_SPACE, 'No space left on target volume', e.message)
     case 'ECONNREFUSED':
+      return new OmniError(
+        ErrorCode.UNREACHABLE,
+        'Nothing is listening on that machine — is OmniCommander running there?',
+        e.message
+      )
     case 'EHOSTUNREACH':
-    case 'ETIMEDOUT':
     case 'ENETUNREACH':
-      return new OmniError(ErrorCode.UNREACHABLE, 'Peer is not reachable', e.message)
+      return new OmniError(
+        ErrorCode.UNREACHABLE,
+        'No network route to that machine',
+        e.message
+      )
+    case 'ETIMEDOUT':
+      return new OmniError(
+        ErrorCode.UNREACHABLE,
+        'That machine did not answer in time',
+        e.message
+      )
+    case 'ECONNRESET':
+    case 'ECONNABORTED':
+    case 'EPIPE':
+      // The TCP handshake succeeded and the connection then died on the first
+      // bytes. On a LAN that is almost always a firewall or security product on
+      // the other machine blocking inbound traffic to the app, not a bad address.
+      return new OmniError(
+        ErrorCode.UNREACHABLE,
+        'That machine accepted the connection then closed it — a firewall or security tool there is most likely blocking OmniCommander',
+        e.message
+      )
     default:
       if (err instanceof OmniError) return err
       return new OmniError(ErrorCode.INTERNAL, fallbackMessage, e?.message)

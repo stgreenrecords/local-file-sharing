@@ -25,7 +25,25 @@ export async function startServer(preferredPort: number): Promise<ServerHandle> 
   const server = createServer((req, res) => {
     void route(req, res).catch((err: unknown) => sendError(res, err))
   })
-  server.on('clientError', (_err, socket) => socket.destroy())
+  server.on('clientError', (err: NodeJS.ErrnoException, socket) => {
+    // Destroying without replying gives the caller a bare connection reset with
+    // no reason, which is near-impossible to diagnose from the other end. Answer
+    // with a real status whenever the socket can still take bytes.
+    if (socket.writable && err.code !== 'ECONNRESET') {
+      const body = JSON.stringify({
+        error: { code: ErrorCode.PROTOCOL, message: 'Malformed HTTP request', detail: err.code }
+      })
+      const head = [
+        'HTTP/1.1 400 Bad Request',
+        'Content-Type: application/json; charset=utf-8',
+        `Content-Length: ${Buffer.byteLength(body)}`,
+        'Connection: close'
+      ].join('\r\n')
+      socket.end(`${head}\r\n\r\n${body}`)
+      return
+    }
+    socket.destroy()
+  })
   // Long transfers must not be killed by an idle-header timeout.
   server.requestTimeout = 0
   server.headersTimeout = 60_000
