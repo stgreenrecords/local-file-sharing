@@ -9,7 +9,7 @@ import { createReadStream, createWriteStream, promises as fsp, type Stats } from
 import { homedir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
 import { pipeline } from 'node:stream/promises'
-import { PassThrough, type Readable } from 'node:stream'
+import { Transform, type Readable } from 'node:stream'
 import type { DirEntry, NodePlatform, Volume } from '@shared/types'
 import { LOCAL_NODE_ID } from '@shared/types'
 import { ErrorCode, OmniError, fromErrno } from '@shared/errors'
@@ -177,10 +177,15 @@ export class LocalProvider implements FsProvider {
 
     const hash = createHash('sha256')
     let bytes = 0
-    const meter = new PassThrough()
-    meter.on('data', (chunk: Buffer) => {
-      bytes += chunk.length
-      hash.update(chunk)
+    // A Transform, not a PassThrough with a `'data'` listener: the latter starts
+    // the stream flowing the moment it is attached, which can drop chunks before
+    // the destination is wired up.
+    const meter = new Transform({
+      transform(chunk: Buffer, _encoding, callback) {
+        bytes += chunk.length
+        hash.update(chunk)
+        callback(null, chunk)
+      }
     })
 
     try {

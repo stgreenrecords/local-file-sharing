@@ -5,12 +5,12 @@
  * Discovery only tells us a machine exists. Trust is separate (see auth.ts), so a
  * newly discovered peer is listed but cannot read anything until it is paired.
  */
-import { networkInterfaces } from 'node:os'
 import { Bonjour, type Browser, type Service } from 'bonjour-service'
 import { PROTOCOL_VERSION, SERVICE_TYPE, type NodePlatform, type Peer } from '@shared/types'
 import { store } from '../store'
 import { hello } from './client'
 import * as registry from './registry'
+export { activeInterface } from './interfaces'
 
 const REPROBE_MS = 15_000
 
@@ -29,7 +29,11 @@ export async function startDiscovery(options: DiscoveryOptions): Promise<void> {
   bonjour = new Bonjour()
 
   published = bonjour.publish({
-    name: identity.displayName,
+    // The mDNS instance name must be unique on the subnet or the advertisement is
+    // rejected outright. Two machines sharing a hostname is common (two fresh
+    // installs, or two dev instances), so the fingerprint disambiguates. The
+    // human-facing name travels in the TXT record instead.
+    name: `${identity.displayName}-${identity.fingerprint.slice(0, 6)}`,
     type: SERVICE_TYPE,
     port: options.port,
     txt: {
@@ -206,32 +210,4 @@ function seedTrustedPeers(): void {
       error: 'Waiting for this machine to come online'
     })
   }
-}
-
-/** The interface the LAN traffic will actually use, for the status bar. */
-export function activeInterface(): {
-  name: string | null
-  address: string | null
-  privateNetwork: boolean
-} {
-  for (const [name, addresses] of Object.entries(networkInterfaces())) {
-    for (const address of addresses ?? []) {
-      if (address.internal || address.family !== 'IPv4') continue
-      return { name, address: address.address, privateNetwork: isPrivate(address.address) }
-    }
-  }
-  return { name: null, address: null, privateNetwork: false }
-}
-
-/** RFC1918 plus link-local and CGNAT — anything else means plaintext on a WAN. */
-function isPrivate(ip: string): boolean {
-  const parts = ip.split('.').map(Number)
-  const [a, b] = parts
-  if (a === undefined || b === undefined) return false
-  if (a === 10 || a === 127) return true
-  if (a === 192 && b === 168) return true
-  if (a === 172 && b >= 16 && b <= 31) return true
-  if (a === 169 && b === 254) return true
-  if (a === 100 && b >= 64 && b <= 127) return true
-  return false
 }

@@ -2,12 +2,12 @@
  * The transfer queue.
  *
  * One serial worker today (see docs/ROADMAP.md phase 4). Each unit streams
- * source -> PassThrough -> target, with the PassThrough feeding a byte counter and
+ * source -> metering Transform -> target, with the Transform feeding a byte counter
  * a SHA-256 hash, so progress and verification cost one pass over the data.
  */
 import { createHash } from 'node:crypto'
 import { randomUUID } from 'node:crypto'
-import { PassThrough } from 'node:stream'
+import { Transform } from 'node:stream'
 import type {
   ConflictPrompt,
   ConflictResolution,
@@ -22,10 +22,19 @@ import type {
 import { LOCAL_NODE_ID } from '@shared/types'
 import { ErrorCode, OmniError, toAppError } from '@shared/errors'
 import { basenameFor, dirnameFor, joinFor } from '@shared/paths'
-import { providerFor } from '../fs/resolve'
-import * as registry from '../net/registry'
-import { store } from '../store'
+import type { FsProvider } from '../fs/provider'
 import { walk, type WalkUnit } from './walk'
+
+/**
+ * Everything the engine needs from the rest of the app. Injected rather than
+ * imported so the engine can be driven against plain local directories in a
+ * test, with no Electron and no network.
+ */
+export interface EngineDeps {
+  providerFor(nodeId: string): FsProvider
+  settings(): Settings
+  nodeRef(nodeId: string): NodeRef
+}
 
 const PROGRESS_INTERVAL_MS = 100
 /** Time constant of the throughput EWMA, in ms. */
@@ -39,7 +48,9 @@ interface QueuedUnit extends WalkUnit {
   batchId: string
 }
 
-class TransferEngine {
+export class TransferEngine {
+  constructor(private readonly deps: EngineDeps) {}
+
   private batches = new Map<string, TransferBatch>()
   private jobs = new Map<string, TransferJob>()
   private pending: QueuedUnit[] = []
@@ -127,15 +138,15 @@ class TransferEngine {
       )
     }
 
-    const source = providerFor(sourceNodeId)
-    const target = providerFor(targetDir.nodeId)
-    const settings = store().settings()
+    const source = this.deps.providerFor(sourceNodeId)
+    const target = this.deps.providerFor(targetDir.nodeId)
+    const settings = this.deps.settings()
 
     const batchId = randomUUID()
     const batch: TransferBatch = {
       id: batchId,
-      sourceNode: nodeRef(sourceNodeId),
-      targetNode: nodeRef(targetDir.nodeId),
+      sourceNode: this.deps.nodeRef(sourceNodeId),
+      targetNode: this.deps.nodeRef(targetDir.nodeId),
       operation,
       createdAt: Date.now(),
       totalBytes: 0,
@@ -261,9 +272,9 @@ class TransferEngine {
   }
 
   private async runUnit(unit: QueuedUnit): Promise<void> {
-    const settings = store().settings()
-    const source = providerFor(unit.source.nodeId)
-    const target = providerFor(unit.target.nodeId)
+    const settings = this.deps.settings()
+    const source = this.deps.providerFor(unit.source.nodeId)
+    const target = this.deps.providerFor(unit.target.nodeId)
 
     let targetPath = unit.target.path
     const existing = await target.stat(targetPath).catch(() => null)
@@ -292,7 +303,6 @@ class TransferEngine {
     })
 
     const hash = createHash('sha256')
-    const meter = new PassThrough({ highWaterMark: settings.bufferWindowBytes })
 
     let transferred = 0
     let lastSampleAt = Date.now()
@@ -300,23 +310,33 @@ class TransferEngine {
     let bps: number | null = null
     let lastEmitAt = 0
 
-    meter.on('data', (chunk: Buffer) => {
-      transferred += chunk.length
-      if (settings.verifyChecksums) hash.update(chunk)
+    /**
+     * Counting must happen *inside* the pipeline, not from a `'data'` listener:
+     * attaching one puts the stream into flowing mode immediately, so bytes get
+     * consumed and discarded before the writer is attached. A Transform sees
+     * every chunk, passes it along, and preserves backpressure.
+     */
+    const meter = new Transform({
+      highWaterMark: settings.bufferWindowBytes,
+      transform: (chunk: Buffer, _encoding, callback): void => {
+        transferred += chunk.length
+        if (settings.verifyChecksums) hash.update(chunk)
 
-      const now = Date.now()
-      const elapsed = now - lastSampleAt
-      if (elapsed >= PROGRESS_INTERVAL_MS) {
-        const instant = ((transferred - lastSampleBytes) * 1000) / elapsed
-        // EWMA so the displayed rate does not flicker on bursty I/O.
-        const alpha = 1 - Math.exp(-elapsed / RATE_TAU_MS)
-        bps = bps === null ? instant : bps + alpha * (instant - bps)
-        lastSampleAt = now
-        lastSampleBytes = transferred
-      }
-      if (now - lastEmitAt >= PROGRESS_INTERVAL_MS) {
-        lastEmitAt = now
-        this.patchJob(unit.jobId, { transferredBytes: transferred, bps }, false)
+        const now = Date.now()
+        const elapsed = now - lastSampleAt
+        if (elapsed >= PROGRESS_INTERVAL_MS) {
+          const instant = ((transferred - lastSampleBytes) * 1000) / elapsed
+          // EWMA so the displayed rate does not flicker on bursty I/O.
+          const alpha = 1 - Math.exp(-elapsed / RATE_TAU_MS)
+          bps = bps === null ? instant : bps + alpha * (instant - bps)
+          lastSampleAt = now
+          lastSampleBytes = transferred
+        }
+        if (now - lastEmitAt >= PROGRESS_INTERVAL_MS) {
+          lastEmitAt = now
+          this.patchJob(unit.jobId, { transferredBytes: transferred, bps }, false)
+        }
+        callback(null, chunk)
       }
     })
 
@@ -345,17 +365,27 @@ class TransferEngine {
         )
       }
 
+      // A move deletes the source only after the copy is verified, and before the
+      // job is reported done — otherwise a watcher sees 'done' while the original
+      // is still there. A failed deletion leaves a duplicate, so say so rather
+      // than swallowing it: the copy itself did succeed.
+      let moveNote: string | undefined
+      if (this.batches.get(unit.batchId)?.operation === 'move') {
+        try {
+          await source.remove([unit.source.path])
+        } catch (err) {
+          moveNote = `Copied, but the original could not be removed: ${toAppError(err).message}`
+        }
+      }
+
       this.patchJob(unit.jobId, {
         status: 'done',
         transferredBytes: result.bytes,
         finishedAt: Date.now(),
         bps,
-        ...(digest === undefined ? {} : { sha256: digest })
+        ...(digest === undefined ? {} : { sha256: digest }),
+        ...(moveNote === undefined ? {} : { error: moveNote })
       })
-
-      if (this.batches.get(unit.batchId)?.operation === 'move') {
-        await source.remove([unit.source.path]).catch(() => undefined)
-      }
     } catch (err) {
       this.patchJob(unit.jobId, {
         status: aborted ? 'cancelled' : 'failed',
@@ -393,7 +423,7 @@ class TransferEngine {
   private prompt(unit: QueuedUnit, existing: DirEntry): Promise<ConflictResolution> {
     this.patchJob(unit.jobId, { status: 'awaiting-decision' })
     const source: DirEntry = {
-      name: basenameFor(providerFor(unit.source.nodeId).platform, unit.source.path),
+      name: basenameFor(this.deps.providerFor(unit.source.nodeId).platform, unit.source.path),
       path: unit.source.path,
       isDir: false,
       size: unit.size,
@@ -423,19 +453,6 @@ class TransferEngine {
   }
 }
 
-function nodeRef(nodeId: string): NodeRef {
-  if (nodeId === LOCAL_NODE_ID) {
-    const identity = store().identity()
-    return { id: LOCAL_NODE_ID, name: identity.displayName, platform: identity.platform }
-  }
-  const peer = registry.get(nodeId)
-  return {
-    id: nodeId,
-    name: peer?.name ?? nodeId,
-    platform: peer?.platform ?? 'linux'
-  }
-}
-
 /** `clip.mov` -> `clip (2).mov`, probing the target until a free name is found. */
 async function uniquePath(
   target: { stat(path: string): Promise<DirEntry>; platform: 'win32' | 'darwin' | 'linux' },
@@ -457,5 +474,3 @@ async function uniquePath(
   }
   throw new OmniError(ErrorCode.EXISTS, 'Could not find a free filename', path)
 }
-
-export const engine = new TransferEngine()

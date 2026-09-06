@@ -11,6 +11,7 @@ direction (Mac -> Windows, Windows -> Mac, or local <-> local).
 |---|---|---|
 | Shell | Electron 33 | Main process doubles as the network daemon |
 | Build | electron-vite + TypeScript | `src/main`, `src/preload`, `src/renderer` |
+| Tests | Vitest | `src/**/*.test.ts`, node environment |
 | UI | React 18 + Tailwind CSS 3 | Tokens generated from `design/precision_dual_pane_commander/DESIGN.md` |
 | State | Zustand | One store per domain, see `src/renderer/state` |
 | Icons/Fonts | Material Symbols Outlined, Geist, JetBrains Mono | Bundled locally, never CDN (app must work offline) |
@@ -29,9 +30,10 @@ src/
   shared/      Types + IPC channel names. Imported by ALL three processes.
                Must stay free of node: and electron imports.
   main/        Node/Electron main process = the daemon
-    fs/        Local filesystem: volumes, listing, mutations
-    net/       discovery (mDNS), server (HTTP API), client (peer calls), auth (pairing)
-    transfer/  Queue + streaming copy engine
+    fs/        Local filesystem: volumes, listing, mutations, provider resolution
+    net/       discovery (mDNS), server (HTTP API), client (peer calls),
+               auth (pairing), registry (peer table), interfaces (which NIC)
+    transfer/  walk (what to copy) + engine (how) + index (real-dependency wiring)
     ipc/       Renderer-facing handlers, one module per domain
   preload/     contextBridge surface. The ONLY bridge; no nodeIntegration.
   renderer/    React UI
@@ -58,8 +60,17 @@ src/
 - **Styling**: Tailwind token classes only (`bg-surface-container`, `text-body-md`,
   `p-space-sm`). No raw hex, no arbitrary px spacing outside `tailwind.config.js`.
   The token set is closed — extend the config rather than inventing a one-off value.
-- **Long operations stream progress**: transfers push `transfer:progress` events on a
-  throttle (>=100ms), never per-chunk.
+- **Long operations stream progress**: the engine emits snapshots on a >=100 ms
+  throttle, never per-chunk.
+- **Never meter a stream with a `'data'` listener.** Attaching one puts the stream
+  into flowing mode immediately, so chunks are consumed and discarded before the
+  destination is piped — small files silently fail. Count and hash inside a
+  `Transform` that sits in the pipeline, which also preserves backpressure. This bug
+  has been fixed once in both `fs/local.ts` and `transfer/engine.ts`; do not
+  reintroduce it.
+- **The engine takes its dependencies by injection** (`EngineDeps`), so it can be
+  tested against plain directories with no Electron. Real wiring lives in
+  `transfer/index.ts` — import `engine` from there, never construct one elsewhere.
 
 ## Design source of truth
 
@@ -81,12 +92,20 @@ a metric the app cannot actually compute.
 
 ```bash
 npm run dev        # electron-vite dev, HMR on the renderer
-npm run typecheck  # tsc on all three tsconfigs — must pass before any commit
-npm run lint
+npm run typecheck  # tsc over main+preload+shared and renderer+shared
+npm test           # vitest run
 npm run build      # bundle only
 npm run dist:win   # NSIS installer
 npm run dist:mac   # dmg + zip
 ```
+
+`npm run typecheck && npm test` must both pass before any commit. There is no
+linter configured yet.
+
+**Module format:** `main` and `preload` build as CommonJS (electron-vite's default
+with no `"type": "module"` in package.json). The renderer is bundled, so it is ESM
+internally. Config files that need ESM syntax carry an `.mjs`/`.mts` extension —
+`tailwind.config.mjs`, `postcss.config.mjs`, `vitest.config.mts`.
 
 ## Testing discovery locally
 
@@ -99,6 +118,11 @@ OMNI_DATA_DIR=.dev/node-b OMNI_PORT=47655 npm run dev
 
 Discovery needs UDP 5353 (mDNS). On Windows, first run prompts for a firewall
 exception on the private profile; if peers do not appear, that prompt was denied.
+
+The advertised mDNS instance name is `<displayName>-<fingerprint[0:6]>`, because an
+mDNS instance name must be unique on the subnet — two machines sharing a hostname
+(or two dev instances) would otherwise fight, and one would fail to advertise. The
+human-readable name travels in the TXT record.
 
 ## Reference docs
 

@@ -7,7 +7,9 @@ and advertises whatever it actually bound).
 ## Discovery
 
 - Service type: `_omnidirect._tcp` (mDNS / Bonjour / DNS-SD, UDP 5353)
-- Instance name: the node's display name
+- Instance name: `<display name>-<first 6 hex of fingerprint>`. An mDNS instance
+  name must be unique per subnet, and two machines often share a hostname; the
+  readable name travels in the `name` TXT record instead.
 - TXT records:
 
 | Key | Meaning |
