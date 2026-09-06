@@ -8,6 +8,10 @@ files:
 asarUnpack:
   - resources/**
 win:
+  # Skips the signtool/winCodeSign toolchain. That toolchain ships macOS symlinks
+  # that Windows refuses to extract without Developer Mode or elevation, and we
+  # have no signing certificate anyway. Signed builds happen in CI.
+  signAndEditExecutable: false
   target:
     - target: nsis
       arch: [x64, arm64]

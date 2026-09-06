@@ -22,12 +22,31 @@ showing. Its drives then appear in the machine selector at the top of either pan
 
 Copy with **F5**, move with **F6**, and watch progress in **Transfer & Sync Queue**.
 
-## Packaging
+## Installers
 
 ```bash
-npm run dist:win   # NSIS installer (x64 + arm64)
-npm run dist:mac   # dmg + zip (universal)
+npm run dist:win   # NSIS installers -> release/  (x64, arm64, and a combined exe)
+npm run dist:mac   # dmg + zip, universal        (must be run ON macOS)
 ```
+
+**A macOS `.dmg` can only be built on macOS** — creating one needs `hdiutil`, so
+there is no way to produce it from Windows or Linux. `.github/workflows/release.yml`
+therefore builds each installer on its own native runner: push a `v*` tag (or run the
+workflow manually) and both land on a GitHub Release.
+
+```bash
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+Neither build is code-signed, so both systems warn on first launch:
+
+- **Windows** — SmartScreen shows "Windows protected your PC": **More info → Run anyway**.
+- **macOS** — Gatekeeper calls the app damaged or unidentified. Clear the quarantine
+  flag once: `xattr -dr com.apple.quarantine "/Applications/OmniCommander.app"`
+
+Signing needs a certificate (an Authenticode cert for Windows, an Apple Developer ID
+plus notarisation for macOS); the workflow is set up to skip signing until those are
+available as repository secrets.
 
 ## Development
 
