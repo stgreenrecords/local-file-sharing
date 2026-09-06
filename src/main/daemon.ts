@@ -5,7 +5,13 @@
  */
 import type { DaemonStatus } from '@shared/types'
 import { pairingLockedUntil, pairingPin } from './net/auth'
-import { activeInterface, startDiscovery, stopDiscovery } from './net/discovery'
+import {
+  activeInterface,
+  startDiscovery,
+  startPeerMaintenance,
+  stopDiscovery,
+  stopPeerMaintenance
+} from './net/discovery'
 import { refreshRouteAddress } from './net/interfaces'
 import * as registry from './net/registry'
 import { startServer, type ServerHandle } from './net/server'
@@ -25,6 +31,10 @@ export async function startDaemon(): Promise<void> {
   // conflict); persist what we actually got so the next launch is stable.
   if (handle.port !== settings.port) store().patchSettings({ port: handle.port })
 
+  // Reconnecting to known machines does not depend on the beacon, so this runs
+  // whether or not mDNS is enabled.
+  startPeerMaintenance()
+
   if (settings.discoveryEnabled) {
     try {
       await startDiscovery({ port: handle.port })
@@ -38,6 +48,7 @@ export async function startDaemon(): Promise<void> {
 }
 
 export async function stopDaemon(): Promise<void> {
+  stopPeerMaintenance()
   await stopDiscovery()
   discovering = false
   await handle?.close()

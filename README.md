@@ -22,6 +22,11 @@ showing. Its drives then appear in the machine selector at the top of either pan
 
 Copy with **F5**, move with **F6**, and watch progress in **Transfer & Sync Queue**.
 
+You only pair once. Both machines remember each other — and the address that last
+worked — so they reconnect on their own at startup, without a code and without
+needing mDNS to answer first. Turn that off under **Settings → Network & security**
+if you would rather connect on demand.
+
 ## Installers
 
 ```bash

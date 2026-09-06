@@ -476,6 +476,24 @@ function NetworkPanel(): ReactNode {
             />
           </div>
 
+          <div className="flex items-start justify-between gap-space-base">
+            <div className="min-w-0">
+              <p className="font-headline-md text-headline-md text-on-surface">
+                Reconnect to paired machines
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant mt-space-2xs">
+                Pairing is remembered, along with the address that last answered, so a
+                known machine comes back on its own at startup without asking for a code
+                again. Turn this off to list known machines but connect only on demand.
+              </p>
+            </div>
+            <Toggle
+              checked={effective(state, 'autoPairKnownPeers', true)}
+              label="Reconnect to paired machines"
+              onChange={(value) => state.edit({ autoPairKnownPeers: value })}
+            />
+          </div>
+
           <div>
             <p className="font-headline-md text-headline-md text-on-surface mb-space-sm">
               Listening port

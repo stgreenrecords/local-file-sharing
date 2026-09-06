@@ -10,14 +10,25 @@ import { PROTOCOL_VERSION, SERVICE_TYPE, type NodePlatform, type Peer } from '@s
 import { store } from '../store'
 import { hello } from './client'
 import * as registry from './registry'
+import { rankPeerAddresses } from './interfaces'
 export { activeInterface } from './interfaces'
 
+/** Refresh cadence for a peer that is answering. */
 const REPROBE_MS = 15_000
+/** How often the scheduler wakes to see whose turn it is. */
+const TICK_MS = 1500
+/** First retry delay after a failure; doubles up to REPROBE_MS. */
+const RETRY_BASE_MS = 2000
+/** Failures tolerated before the raw network error is shown to the user. */
+const QUIET_FAILURES = 3
 
 let bonjour: Bonjour | null = null
 let browser: Browser | null = null
 let published: Service | null = null
 let reprobeTimer: NodeJS.Timeout | null = null
+
+/** Per-peer retry bookkeeping, so a peer that is down is not hammered. */
+const schedule = new Map<string, { failures: number; nextAt: number; inFlight: boolean }>()
 
 export interface DiscoveryOptions {
   port: number
@@ -61,17 +72,46 @@ export async function startDiscovery(options: DiscoveryOptions): Promise<void> {
     else registry.patch(id, { state: 'unreachable', rttMs: null, error: 'Left the network' })
   })
 
-  // Trusted peers are seeded immediately so they render before mDNS answers.
-  seedTrustedPeers()
-  reprobeTimer = setInterval(() => void reprobeAll(), REPROBE_MS)
-  reprobeTimer.unref?.()
 }
 
-export async function stopDiscovery(): Promise<void> {
+/**
+ * Seeds known machines and keeps every peer's reachability fresh.
+ *
+ * Deliberately independent of mDNS: trust and the last working endpoint are both
+ * persisted, so a paired machine reconnects even when the beacon is switched off
+ * or multicast is blocked on the network.
+ */
+export function startPeerMaintenance(): void {
+  stopPeerMaintenance()
+  seedTrustedPeers()
+  // A short tick with per-peer backoff: a machine that comes online is picked up
+  // in a couple of seconds rather than after a fixed 15s window, while one that
+  // is genuinely off is retried progressively less often.
+  reprobeTimer = setInterval(() => void tick(), TICK_MS)
+  reprobeTimer.unref?.()
+  void tick()
+}
+
+export function stopPeerMaintenance(): void {
   if (reprobeTimer !== null) {
     clearInterval(reprobeTimer)
     reprobeTimer = null
   }
+  schedule.clear()
+}
+
+async function tick(): Promise<void> {
+  const now = Date.now()
+  const due = registry.list().filter((peer) => {
+    if (peer.state === 'incompatible' || peer.port === 0) return false
+    const entry = schedule.get(peer.id)
+    if (entry === undefined) return true
+    return !entry.inFlight && now >= entry.nextAt
+  })
+  await Promise.all(due.map((peer) => probe(peer.id)))
+}
+
+export async function stopDiscovery(): Promise<void> {
   browser?.stop()
   browser = null
   if (bonjour !== null) {
@@ -98,11 +138,20 @@ function txtValue(service: Service, key: string): string | undefined {
   return typeof value === 'string' && value !== '' ? value : undefined
 }
 
-/** Prefers IPv4 — Node's http client is happier with it on mixed-stack LANs. */
-function pickAddress(service: Service): string | undefined {
-  const addresses = (service.addresses ?? []).filter((a) => !a.startsWith('fe80'))
-  const v4 = addresses.find((a) => /^\d+\.\d+\.\d+\.\d+$/.test(a))
-  return v4 ?? addresses[0] ?? service.host
+/**
+ * Every address the peer advertised, best first. A machine announces all of its
+ * interfaces, and virtual ones (WSL, Docker, VM hosts) often sort first, so the
+ * naive "first IPv4" pick lands on an address no other machine can route to.
+ */
+function candidateAddresses(service: Service, fallbackHost?: string): string[] {
+  const advertised = service.addresses ?? []
+  const ranked = rankPeerAddresses(advertised)
+  // `service.host` is the .local name — a usable last resort if every literal
+  // address is filtered out or unreachable.
+  const extras = [service.host, fallbackHost].filter(
+    (h): h is string => typeof h === 'string' && h !== '' && !ranked.includes(h)
+  )
+  return [...ranked, ...extras]
 }
 
 async function onServiceUp(service: Service): Promise<void> {
@@ -111,7 +160,9 @@ async function onServiceUp(service: Service): Promise<void> {
   // mDNS echoes our own advertisement back to us.
   if (id === undefined || id === identity.nodeId) return
 
-  const host = pickAddress(service)
+  const known = registry.get(id)
+  const candidates = candidateAddresses(service, known?.host)
+  const host = candidates[0]
   if (host === undefined) return
 
   const version = Number(txtValue(service, 'ver') ?? '0')
@@ -120,14 +171,14 @@ async function onServiceUp(service: Service): Promise<void> {
     name: txtValue(service, 'name') ?? service.name ?? host,
     platform: (txtValue(service, 'platform') ?? 'linux') as NodePlatform,
     host,
-    addresses: service.addresses ?? [host],
+    addresses: candidates,
     port: service.port,
     fingerprint: txtValue(service, 'fp') ?? '',
     protocolVersion: version,
     state: version === PROTOCOL_VERSION ? 'discovered' : 'incompatible',
     rttMs: null,
     lastSeen: Date.now(),
-    volumes: registry.get(id)?.volumes ?? []
+    volumes: known?.volumes ?? []
   }
   registry.upsert(base)
   if (base.state === 'incompatible') return
@@ -141,30 +192,79 @@ async function onServiceUp(service: Service): Promise<void> {
 async function probe(nodeId: string): Promise<void> {
   const peer = registry.get(nodeId)
   if (peer === undefined || peer.state === 'incompatible') return
+  if (peer.port === 0) return
   const token = store().tokenFor(nodeId)
 
-  try {
-    const { hello: info, rttMs } = await hello(peer.host, peer.port, token ?? undefined)
-    const paired = token !== null && info.paired
-    registry.patch(nodeId, {
-      name: info.name,
-      platform: info.platform,
-      fingerprint: info.fp,
-      protocolVersion: info.ver,
-      rttMs,
-      lastSeen: Date.now(),
-      state: paired ? 'paired' : 'discovered',
-      ...(paired ? {} : { volumes: [] })
-    })
-    if (paired) await loadVolumes(nodeId)
-    else registry.patch(nodeId, { error: undefined })
-  } catch (err) {
-    registry.patch(nodeId, {
-      state: 'unreachable',
-      rttMs: null,
-      error: err instanceof Error ? err.message : 'Probe failed'
-    })
+  const entry = schedule.get(nodeId) ?? { failures: 0, nextAt: 0, inFlight: false }
+  if (entry.inFlight) return
+  entry.inFlight = true
+  schedule.set(nodeId, entry)
+
+  // Try the current address first, then the rest of what the peer advertised.
+  // One machine can announce a virtual adapter that no peer can route to, so a
+  // single failure says nothing about whether the machine is reachable.
+  const attempts = [peer.host, ...peer.addresses].filter(
+    (host, index, all) => host !== '' && all.indexOf(host) === index
+  )
+
+  let lastError = 'Probe failed'
+  for (const host of attempts) {
+    try {
+      const { hello: info, rttMs } = await hello(host, peer.port, token ?? undefined)
+      const paired = token !== null && info.paired
+      registry.patch(nodeId, {
+        // Remember the address that answered so later calls go straight there.
+        host,
+        name: info.name,
+        platform: info.platform,
+        fingerprint: info.fp,
+        protocolVersion: info.ver,
+        rttMs,
+        lastSeen: Date.now(),
+        state: paired ? 'paired' : 'discovered',
+        error: undefined,
+        ...(paired ? {} : { volumes: [] })
+      })
+      if (paired) {
+        // Keep the working endpoint so the next launch reconnects on its own.
+        store().rememberEndpoint(nodeId, host, peer.port)
+        await loadVolumes(nodeId)
+      }
+      schedule.set(nodeId, { failures: 0, nextAt: Date.now() + REPROBE_MS, inFlight: false })
+      return
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : 'Probe failed'
+    }
   }
+
+  const failures = entry.failures + 1
+  schedule.set(nodeId, {
+    failures,
+    nextAt: Date.now() + Math.min(RETRY_BASE_MS * 2 ** (failures - 1), REPROBE_MS),
+    inFlight: false
+  })
+
+  // A machine we have paired with is usually just booting or asleep. Saying
+  // "reconnecting" for the first few attempts avoids alarming the user during a
+  // normal startup race; after that, show what actually went wrong.
+  const trusted = store().tokenFor(nodeId) !== null
+  const detail = attempts.length > 1 ? `${lastError} (tried ${attempts.join(', ')})` : lastError
+  registry.patch(nodeId, {
+    state: 'unreachable',
+    rttMs: null,
+    error: trusted && failures <= QUIET_FAILURES ? 'Reconnecting…' : detail
+  })
+}
+
+/**
+ * Finds an address that answers, updating the registry, and returns it. Pairing
+ * uses this so the PIN is not spent on an address that cannot be reached.
+ */
+export async function resolveEndpoint(nodeId: string): Promise<string | null> {
+  await probe(nodeId)
+  const peer = registry.get(nodeId)
+  if (peer === undefined || peer.state === 'unreachable') return null
+  return peer.host === '' ? null : peer.host
 }
 
 export async function loadVolumes(nodeId: string): Promise<void> {
@@ -183,31 +283,41 @@ export async function loadVolumes(nodeId: string): Promise<void> {
 }
 
 async function reprobeAll(): Promise<void> {
+  // Manual rescan: clear the backoff so every peer is retried at once.
+  for (const [id, entry] of schedule) schedule.set(id, { ...entry, nextAt: 0 })
   await Promise.all(registry.list().map((peer) => probe(peer.id)))
 }
 
 /**
- * Peers we have paired with before, listed as unreachable until mDNS or a probe
- * proves otherwise. Their address is unknown until then, so they are seeded
- * without one and skipped by the prober.
+ * Machines we have already paired with. Trust and the last working endpoint both
+ * survive a restart, so these are seeded and probed immediately — a known peer
+ * reconnects on its own without waiting for mDNS or asking for a PIN again.
  */
 function seedTrustedPeers(): void {
+  const reconnect = store().settings().autoPairKnownPeers
   for (const trusted of store().trustedPeers()) {
     if (registry.get(trusted.nodeId) !== undefined) continue
+    const host = trusted.lastHost ?? ''
+    const port = trusted.lastPort ?? 0
     registry.upsert({
       id: trusted.nodeId,
       name: trusted.name,
       platform: trusted.platform,
-      host: '',
-      addresses: [],
-      port: 0,
+      host,
+      addresses: host === '' ? [] : [host],
+      port,
       fingerprint: trusted.fingerprint,
       protocolVersion: PROTOCOL_VERSION,
       state: 'unreachable',
       rttMs: null,
       lastSeen: 0,
       volumes: [],
-      error: 'Waiting for this machine to come online'
+      error:
+        host === ''
+          ? 'Waiting for this machine to come online'
+          : 'Reconnecting…'
     })
+    // probe() promotes it to 'paired' and loads its drives if it answers.
+    if (reconnect && host !== '' && port !== 0) void probe(trusted.nodeId)
   }
 }

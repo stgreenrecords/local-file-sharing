@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { chooseInterface, isPrivateAddress, listCandidates, refreshRouteAddress } from './interfaces'
+import {
+  chooseInterface,
+  isPrivateAddress,
+  listCandidates,
+  rankPeerAddresses,
+  refreshRouteAddress,
+  sameSubnet
+} from './interfaces'
 
 describe('isPrivateAddress', () => {
   it.each([
@@ -97,5 +104,72 @@ describe('refreshRouteAddress on this machine', () => {
   it('coalesces concurrent lookups', async () => {
     const [a, b] = await Promise.all([refreshRouteAddress(), refreshRouteAddress()])
     expect(a).toBe(b)
+  })
+})
+
+describe('sameSubnet', () => {
+  it('matches inside a /24', () => {
+    expect(sameSubnet('192.168.1.26', '192.168.1.18', '255.255.255.0')).toBe(true)
+  })
+  it('rejects across /24 boundaries', () => {
+    expect(sameSubnet('192.168.1.26', '192.168.2.18', '255.255.255.0')).toBe(false)
+  })
+  it('honours a wider mask', () => {
+    expect(sameSubnet('172.29.176.1', '172.29.180.5', '255.255.240.0')).toBe(true)
+    expect(sameSubnet('172.29.176.1', '172.29.200.5', '255.255.240.0')).toBe(false)
+  })
+  it('returns false on malformed input', () => {
+    expect(sameSubnet('nope', '192.168.1.1', '255.255.255.0')).toBe(false)
+  })
+})
+
+describe('rankPeerAddresses', () => {
+  // The Mac's view of a Windows box that also runs WSL. Dialing the WSL address
+  // from another machine cannot work; this is the bug that broke PC<->Mac pairing.
+  const windowsPeer = ['172.29.176.1', '192.168.1.26', 'fe80::1%eth0']
+  const macSubnets = [{ address: '192.168.1.42', netmask: '255.255.255.0' }]
+
+  it('puts the address on our own subnet first', () => {
+    expect(rankPeerAddresses(windowsPeer, macSubnets)[0]).toBe('192.168.1.26')
+  })
+
+  it('still offers the other private address as a fallback', () => {
+    expect(rankPeerAddresses(windowsPeer, macSubnets)).toEqual([
+      '192.168.1.26',
+      '172.29.176.1'
+    ])
+  })
+
+  it('drops IPv6 link-local, which cannot be dialed without a scope', () => {
+    expect(rankPeerAddresses(['fe80::1', 'fe80::2%en0', '10.0.0.5'], [])).toEqual(['10.0.0.5'])
+  })
+
+  it('drops IPv4 link-local, which means DHCP failed on that interface', () => {
+    expect(rankPeerAddresses(['169.254.98.24', '192.168.1.5'], [])).toEqual(['192.168.1.5'])
+  })
+
+  it('keeps a stable order when nothing is on our subnet', () => {
+    expect(rankPeerAddresses(['10.1.1.1', '172.16.0.9'], [])).toEqual(['10.1.1.1', '172.16.0.9'])
+  })
+
+  it('ranks a public address below any private one', () => {
+    expect(rankPeerAddresses(['203.0.113.7', '10.0.0.4'], [])).toEqual(['10.0.0.4', '203.0.113.7'])
+  })
+
+  it('de-duplicates repeated announcements', () => {
+    expect(rankPeerAddresses(['10.0.0.4', '10.0.0.4'], [])).toEqual(['10.0.0.4'])
+  })
+
+  it('returns nothing when every address is unusable', () => {
+    expect(rankPeerAddresses(['fe80::1', '169.254.1.1', ''], [])).toEqual([])
+  })
+
+  it('works from the Windows side too, symmetrically', () => {
+    const macPeer = ['192.168.1.42', '10.211.55.2'] // second is a Parallels adapter
+    const winSubnets = [
+      { address: '172.29.176.1', netmask: '255.255.240.0' },
+      { address: '192.168.1.26', netmask: '255.255.255.0' }
+    ]
+    expect(rankPeerAddresses(macPeer, winSubnets)[0]).toBe('192.168.1.42')
   })
 })

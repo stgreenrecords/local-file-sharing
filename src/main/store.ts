@@ -168,6 +168,18 @@ class Store {
     this.flush()
   }
 
+  /**
+   * Records where a peer answered. Pairing survives restarts, so remembering the
+   * endpoint lets a known machine reconnect before mDNS has said anything.
+   */
+  rememberEndpoint(nodeId: string, host: string, port: number): void {
+    const existing = this.state.trust[nodeId]
+    if (existing === undefined) return
+    if (existing.lastHost === host && existing.lastPort === port) return
+    this.state.trust[nodeId] = { ...existing, lastHost: host, lastPort: port }
+    this.flush()
+  }
+
   forget(nodeId: string): void {
     delete this.state.trust[nodeId]
     delete this.state.issued[nodeId]

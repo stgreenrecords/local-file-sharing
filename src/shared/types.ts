@@ -193,6 +193,9 @@ export interface TrustedPeer {
   platform: NodePlatform
   fingerprint: string
   pairedAt: number
+  /** Last endpoint that answered, so a known peer reconnects without mDNS. */
+  lastHost?: string
+  lastPort?: number
 }
 
 /** Live daemon status, polled by the header/status bar. */

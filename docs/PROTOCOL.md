@@ -20,6 +20,31 @@ and advertises whatever it actually bound).
 | `ver` | Protocol version, currently `1`. Peers with a different major are listed but not paired. |
 | `fp` | First 16 hex chars of SHA-256 of the node secret. Lets a user eyeball that a peer identity has not changed. |
 
+### Choosing which address to dial
+
+A machine advertises an A record for **every** non-internal interface it has, and
+`bonjour-service` offers no way to filter that list. On a developer machine the
+virtual adapters (WSL, Docker, Parallels, VM hosts) frequently sort *before* the
+real NIC, so taking the first IPv4 address lands on something no other machine can
+route to — which is why naive selection fails across a real LAN even though
+discovery itself succeeds.
+
+Addresses are therefore ranked before use:
+
+1. an address on one of *our own* subnets (compared with our netmask) — the route
+   that demonstrably exists
+2. any other private address
+3. a public address
+4. routable IPv6
+
+IPv4 link-local (`169.254.0.0/16`, i.e. DHCP failed) and IPv6 link-local (`fe80::`,
+needs a scope id) are discarded. The `.local` hostname from the SRV record is kept
+as a last resort.
+
+The prober then **tries each candidate in order** until one answers, so a wrong
+guess costs a round trip rather than the connection. The address that answered is
+remembered on the peer and, for paired peers, persisted in the trust store.
+
 ## Authentication
 
 Bearer tokens, established once per peer pair.
@@ -38,6 +63,12 @@ Tokens are symmetric in effect but not shared: A holding a token for B lets A br
 For B to browse A, B pairs with A. The UI does both legs in one **Connect & Pair**
 action — after a successful pair it calls `POST /api/pair/reciprocate` so the peer
 pairs back using a PIN we hand it inline.
+
+Pairing is once per pair of machines. Tokens and the last working endpoint are both
+persisted, so on the next launch a known machine is probed straight away and
+reconnects without a PIN — independently of mDNS, so it also works where multicast
+is blocked. Failed probes back off (2s, 4s, 8s, then every 15s), and a peer that is
+merely booting reads as "Reconnecting…" rather than an error.
 
 ### Threat model, stated plainly
 

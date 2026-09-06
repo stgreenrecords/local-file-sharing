@@ -11,7 +11,7 @@ import { providerFor, forgetProvider } from '../fs/resolve'
 import { invalidateVolumeCache } from '../fs/volumes'
 import { onPairingChange, pairingPin, rotatePin } from '../net/auth'
 import { hello, pairWithPeer } from '../net/client'
-import { activeInterface, loadVolumes, rescan } from '../net/discovery'
+import { activeInterface, loadVolumes, rescan, resolveEndpoint } from '../net/discovery'
 import * as registry from '../net/registry'
 import { engine } from '../transfer'
 import { store } from '../store'
@@ -185,11 +185,24 @@ async function pairAndRefresh(nodeId: string, pin: string): Promise<Peer> {
   }
   registry.patch(nodeId, { state: 'pairing', error: undefined })
   try {
+    // Confirm which of the peer's advertised addresses actually answers before
+    // spending the PIN. A machine announces every interface it has, including
+    // virtual ones no other machine can route to.
+    const host = (await resolveEndpoint(nodeId)) ?? peer.host
+    if (host === '') {
+      throw new OmniError(
+        ErrorCode.UNREACHABLE,
+        `${peer.name} is not answering on any of its advertised addresses`,
+        peer.addresses.join(', ')
+      )
+    }
+    const port = registry.get(nodeId)?.port ?? peer.port
     const ourPin = pairingPin()
-    await pairWithPeer(peer.host, peer.port, pin, {
+    await pairWithPeer(host, port, pin, {
       ...(ourPin === null ? {} : { reciprocate: { pin: ourPin, port: serverPort() } })
     })
-    registry.patch(nodeId, { state: 'paired', error: undefined })
+    registry.patch(nodeId, { state: 'paired', host, error: undefined })
+    store().rememberEndpoint(nodeId, host, port)
     await loadVolumes(nodeId)
     return registry.get(nodeId)!
   } catch (err) {

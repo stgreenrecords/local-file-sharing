@@ -60,6 +60,11 @@ src/
 - **Styling**: Tailwind token classes only (`bg-surface-container`, `text-body-md`,
   `p-space-sm`). No raw hex, no arbitrary px spacing outside `tailwind.config.js`.
   The token set is closed — extend the config rather than inventing a one-off value.
+- **Never trust a peer's first advertised address.** A machine announces every
+  interface it owns, and virtual adapters (WSL, Docker, VM hosts) often sort first.
+  Rank with `rankPeerAddresses` and try candidates in order — see
+  `src/main/net/interfaces.ts`. This bug broke all cross-machine pairing once; do
+  not reintroduce it.
 - **Long operations stream progress**: the engine emits snapshots on a >=100 ms
   throttle, never per-chunk.
 - **Never meter a stream with a `'data'` listener.** Attaching one puts the stream

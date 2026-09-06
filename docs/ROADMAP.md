@@ -27,6 +27,8 @@ Status legend: `[x]` done and verified · `[~]` partially done · `[ ]` not star
 - [x] "Open in left/right pane" wiring from a peer volume
 - [x] Direct-IP pairing for subnets where multicast is blocked
 - [x] Default-route interface detection (not the first virtual adapter)
+- [x] Peer address ranking + fallback across every advertised address
+- [x] Automatic reconnect to paired machines, independent of mDNS, with backoff
 
 ## Phase 3 — Remote browsing `[x]`
 - [x] HTTP API server (volumes/list/stat/file/mkdir/delete/rename)
@@ -77,6 +79,7 @@ Status legend: `[x]` done and verified · `[~]` partially done · `[ ]` not star
 | Transfer engine | 20 tests driving the real engine + real `LocalProvider` over temp dirs |
 | HTTP protocol | 34 checks run against a live instance (see below) |
 | UI render | Confirmed manually against a running build |
+| Discovery → pair → transfer | Driven end to end between two live instances over CDP: mDNS discovery, PIN pairing (both legs), a 12 MB copy over HTTP with a matching SHA-256, and reconnect after restart with mDNS switched off |
 
 The HTTP protocol checks are not yet part of `npm test` — they need two live
 instances, so they were run as a one-off script. Turning them into a
@@ -94,3 +97,12 @@ instances, so they were run as a one-off script. Turning them into a
    asks the kernel which source address the default route uses.
 4. **A move marked the job done before deleting the source, and swallowed a failed
    deletion.** The delete now happens first, and a failure is reported on the job.
+5. **Cross-machine pairing always failed ("socket hang up").** Discovery worked and
+   the handshake was correct, but a peer's *first advertised* IPv4 address was
+   dialed blindly. `bonjour-service` emits an A record for every interface, and a
+   virtual adapter (WSL here) sorted first — an address the other machine cannot
+   route to. Addresses are now ranked by reachability and every candidate is tried.
+6. **Known machines did not reconnect on their own.** Trust persisted but the
+   endpoint did not, seeding lived inside mDNS startup (so it never ran with the
+   beacon off), and retries were a flat 15s. The endpoint is now persisted,
+   reconnection is independent of mDNS, and retries back off from 2s.

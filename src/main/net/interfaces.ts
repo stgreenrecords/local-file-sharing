@@ -67,6 +67,79 @@ export function listCandidates(): InterfaceCandidate[] {
   )
 }
 
+/* ── choosing which of a peer's addresses to dial ────────────────────── */
+
+export interface LocalSubnet {
+  address: string
+  netmask: string
+}
+
+/** This machine's IPv4 networks, used to judge which peer address is local. */
+export function localSubnets(): LocalSubnet[] {
+  return Object.entries(networkInterfaces()).flatMap(([, addresses]) =>
+    (addresses ?? [])
+      .filter((a) => !a.internal && a.family === 'IPv4' && a.netmask)
+      .map((a) => ({ address: a.address, netmask: a.netmask }))
+  )
+}
+
+const toInt = (ip: string): number | null => {
+  const parts = ip.split('.')
+  if (parts.length !== 4) return null
+  let out = 0
+  for (const part of parts) {
+    const n = Number(part)
+    if (!Number.isInteger(n) || n < 0 || n > 255) return null
+    out = (out << 8) | n
+  }
+  return out >>> 0
+}
+
+/** True when both addresses sit on the same IPv4 network. */
+export function sameSubnet(a: string, b: string, netmask: string): boolean {
+  const ia = toInt(a)
+  const ib = toInt(b)
+  const im = toInt(netmask)
+  if (ia === null || ib === null || im === null) return false
+  return ((ia & im) >>> 0) === ((ib & im) >>> 0)
+}
+
+const isIpv4 = (value: string): boolean => toInt(value) !== null
+
+/**
+ * Orders a peer's advertised addresses by how likely we can actually reach them.
+ *
+ * A machine advertises every interface it has, and virtual adapters (WSL, Docker,
+ * VM hosts) frequently sort first. Dialing one of those from another machine
+ * cannot work, which is why "first IPv4 wins" fails across a real LAN. Preferring
+ * an address on one of *our own* subnets picks the route that exists.
+ */
+export function rankPeerAddresses(addresses: string[], subnets = localSubnets()): string[] {
+  const seen = new Set<string>()
+  const candidates = addresses.filter((address) => {
+    if (typeof address !== 'string' || address === '') return false
+    // IPv6 link-local needs a scope id to dial and is never worth trying here.
+    if (address.startsWith('fe80') || address.includes('%')) return false
+    // IPv4 link-local means DHCP failed on that interface.
+    if (address.startsWith('169.254.')) return false
+    if (seen.has(address)) return false
+    seen.add(address)
+    return true
+  })
+
+  const score = (address: string): number => {
+    if (!isIpv4(address)) return 3 // routable IPv6, last resort
+    if (subnets.some((s) => sameSubnet(address, s.address, s.netmask))) return 0
+    if (isPrivateAddress(address)) return 1
+    return 2
+  }
+
+  return candidates
+    .map((address, index) => ({ address, index, score: score(address) }))
+    .sort((a, b) => a.score - b.score || a.index - b.index)
+    .map((c) => c.address)
+}
+
 const ROUTE_TTL_MS = 10_000
 const ROUTE_TIMEOUT_MS = 1000
 
