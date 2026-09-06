@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-variant":"#31353c","secondary-fixed-dim":"#4de082","background":"#10141a","surface-container-highest":"#31353c","outline-variant":"#3e484f","primary-fixed-dim":"#7bd0ff","on-primary-container":"#004965","surface-container-low":"#181c22","on-primary":"#00354a","secondary-fixed":"#6dfe9c","tertiary-fixed-dim":"#bdc2ff","on-background":"#dfe2eb","tertiary":"#c5c9ff","on-primary-fixed":"#001e2c","on-tertiary":"#131e8c","secondary-container":"#00b55d","on-secondary-fixed":"#00210c","secondary":"#4de082","surface":"#10141a","tertiary-container":"#a3abff","inverse-surface":"#dfe2eb","on-secondary":"#003919","surface-container-lowest":"#0a0e14","inverse-on-surface":"#2d3137","primary-container":"#38bdf8","surface-container":"#1c2026","surface-dim":"#10141a","on-surface-variant":"#bdc8d1","error-container":"#93000a","outline":"#87929a","tertiary-fixed":"#e0e0ff","on-tertiary-fixed":"#000767","primary":"#8ed5ff","surface-container-high":"#262a31","error":"#ffb4ab","primary-fixed":"#c4e7ff","inverse-primary":"#00668a","on-surface":"#dfe2eb","on-error-container":"#ffdad6","surface-bright":"#353940","on-error":"#690005","on-tertiary-fixed-variant":"#2f3aa3","on-secondary-container":"#003e1c","on-tertiary-container":"#2c37a0","on-secondary-fixed-variant":"#005227","surface-tint":"#7bd0ff","on-primary-fixed-variant":"#004c69"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"8px","pane-gutter":"1px","header-height":"36px","space-sm":"6px","function-bar-height":"32px","space-base":"12px","row-compact":"22px","row-standard":"26px","space-lg":"16px","space-xs":"4px","space-xl":"24px","space-2xs":"2px","statusbar-height":"24px"},"fontFamily":{"data-tabular-sm":["JetBrains Mono"],"body-sm":["Geist"],"headline-xl":["Geist"],"keybind-label":["JetBrains Mono"],"headline-lg":["Geist"],"data-tabular-md":["JetBrains Mono"],"body-md":["Geist"],"data-tabular-lg":["JetBrains Mono"],"headline-md":["Geist"],"body-lg":["Geist"]},"fontSize":{"data-tabular-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.02em","fontWeight":"400"}],"body-sm":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"keybind-label":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"data-tabular-md":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"data-tabular-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-md":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.005em","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-b border-outline-variant/30"><div class="h-header-height w-full px-space-base flex items-center justify-between border-b border-outline-variant/20 bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs mr-space-sm"><span class="w-3 h-3 rounded-full bg-error/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-amber-400/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-secondary/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[16px]">terminal</span><span class="font-headline-md text-headline-md text-on-surface font-medium tracking-tight">OmniCommander v2.4 (Cross-Platform Dual-Pane)</span></div></div><div class="flex items-center gap-space-base"><div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded bg-surface-container border border-outline-variant/40"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium tracking-wider uppercase">LAN Active: 10 GbE / Direct Link</span><span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant ml-space-xs">4ms</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-header-height w-full px-space-base flex items-center justify-between bg-surface-container"><nav class="flex items-center h-full gap-space-xs" data-active-classes="bg-surface-container-high text-primary border-b-2 border-primary font-semibold"><a aria-current="page" class="h-full px-space-base flex items-center transition-colors bg-surface-container-high text-primary border-b-2 border-primary font-semibold" data-path="dual-pane-commander" href="#">Dual Pane Commander</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="transfer-sync-queue" href="#">Transfer &amp; Sync Queue (3)</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="network-discovery" href="#">Network Discovery</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="settings-preferences" href="#">Settings &amp; Preferences</a></nav><div class="flex items-center gap-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm"><span class="px-space-xs py-space-2xs bg-surface-container-low border border-outline-variant/30 rounded text-on-surface">NODE: local-station-01</span><span class="text-outline">|</span><span>RAM: 3.2/32 GB</span></div></div></header><main class="w-full pt-[72px] pb-[56px] bg-surface flex-1 min-h-[calc(100vh-128px)]"><div class="flex flex-col w-full select-none" id="commander-app">
+<!-- Telemetry Sub-Bar / Quick Pipeline Strip -->
+<div class="w-full bg-surface-container-lowest px-space-base py-space-xs flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">swap_horiz</span>
+<span class="font-data-tabular-sm text-data-tabular-sm uppercase tracking-wider text-on-surface">Sync Channel: Peer-to-Peer</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary bg-secondary/10 px-space-xs py-space-2xs rounded">NVMe-oF / RDMA Direct</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant">
+<span class="font-data-tabular-sm text-data-tabular-sm">Source MTU: <span class="text-on-surface">9000</span></span>
+<span class="text-outline-variant">•</span>
+<span class="font-data-tabular-sm text-data-tabular-sm">Target Latency: <span class="text-secondary font-medium">0.8 ms</span></span>
+<span class="text-outline-variant">•</span>
+<span class="font-data-tabular-sm text-data-tabular-sm">Buffer Cache: <span class="text-on-surface">2.4 GB Clean</span></span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-2xs rounded">
+<span class="font-keybind-label text-keybind-label text-primary">TAB</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Switch Pane Focus</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-2xs rounded">
+<span class="font-keybind-label text-keybind-label text-secondary">Ctrl+D</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Diff Check</span>
+</div>
+</div>
+</div>
+<!-- Primary Dual Pane Container -->
+<div class="relative w-full flex flex-row items-stretch min-h-[calc(100vh-190px)] p-space-xs gap-space-xs bg-surface" id="dual-pane-root">
+<!-- LEFT PANE: macOS Sonoma Local Station (ACTIVE) -->
+<section class="flex-1 flex flex-col bg-surface-container-low rounded shadow-md overflow-hidden min-w-[380px]" id="left-pane" tabindex="0">
+<!-- Pane Master Header: Host & Drive Context -->
+<div class="bg-surface-container-high px-space-base py-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-5 h-5 rounded flex items-center justify-center bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-[14px]">laptop_mac</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold truncate">macOS Local Node</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary bg-primary/15 px-space-xs py-space-2xs rounded">FOCUSED</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<!-- Drive Selector Dropdown Pill -->
+<div class="relative group">
+<button class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-2xs rounded hover:bg-surface-bright transition-colors text-on-surface" type="button">
+<span class="material-symbols-outlined text-primary text-[15px]">hard_drive</span>
+<span class="font-data-tabular-sm text-data-tabular-sm font-medium">Macintosh HD (APFS)</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary">184 GB Free</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">expand_more</span>
+</button>
+</div>
+<!-- macOS System Bookmark Icons -->
+<div class="flex items-center bg-surface-container-lowest p-space-2xs rounded gap-space-2xs text-on-surface-variant">
+<button class="w-5 h-5 flex items-center justify-center rounded hover:bg-surface-bright hover:text-on-surface transition-colors" title="Home (~)">
+<span class="material-symbols-outlined text-[14px]">home</span>
+</button>
+<button class="w-5 h-5 flex items-center justify-center rounded hover:bg-surface-bright hover:text-on-surface transition-colors" title="Desktop">
+<span class="material-symbols-outlined text-[14px]">desktop_mac</span>
+</button>
+<button class="w-5 h-5 flex items-center justify-center rounded hover:bg-surface-bright hover:text-on-surface transition-colors" title="Downloads">
+<span class="material-symbols-outlined text-[14px]">download</span>
+</button>
+<button class="w-5 h-5 flex items-center justify-center rounded bg-surface-container-high text-primary" title="Projects / Dev">
+<span class="material-symbols-outlined text-[14px]">code</span>
+</button>
+<button class="w-5 h-5 flex items-center justify-center rounded hover:bg-surface-bright hover:text-on-surface transition-colors" title="Root (/)">
+<span class="material-symbols-outlined text-[14px]">data_object</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tab Strip & Breadcrumb Shell -->
+<div class="flex flex-col bg-surface-container">
+<!-- Tab Bar -->
+<div class="flex items-center px-space-xs pt-space-xs gap-space-2xs bg-surface-container-lowest">
+<div class="flex items-center gap-space-xs px-space-base py-space-2xs bg-surface-container rounded-t text-primary font-body-sm text-body-sm font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">folder</span>
+<span class="truncate">Client-Media-Assets</span>
+<span class="material-symbols-outlined text-[12px] text-on-surface-variant hover:text-on-surface cursor-pointer">close</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-base py-space-2xs bg-surface-container-low rounded-t text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[14px]">movie</span>
+<span class="truncate">B-Roll-Renders</span>
+</div>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" title="New Tab">
+<span class="material-symbols-outlined text-[15px]">add</span>
+</button>
+</div>
+<!-- Breadcrumbs Navigation Bar -->
+<div class="flex items-center justify-between px-space-sm py-space-2xs bg-surface-container gap-space-xs">
+<div class="flex items-center gap-space-2xs min-w-0 flex-1 overflow-hidden font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<button class="hover:text-primary flex items-center transition-colors"><span class="material-symbols-outlined text-[14px]">hard_drive</span></button>
+<span>/</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Users</span>
+<span>/</span>
+<span class="hover:text-primary cursor-pointer transition-colors">alexander</span>
+<span>/</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Projects</span>
+<span>/</span>
+<span class="text-primary font-medium bg-primary/10 px-space-xs rounded">Client-Media-Assets</span>
+</div>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-colors" title="Go to Parent Directory (Backspace)">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+</button>
+<button class="p-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-colors" title="Copy POSIX Path">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+<button class="p-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-colors" title="Filter current view">
+<span class="material-symbols-outlined text-[14px]">filter_list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- File Table Header -->
+<div class="grid grid-cols-12 px-space-sm py-space-2xs bg-surface-container-high font-data-tabular-sm text-data-tabular-sm text-on-surface-variant font-medium items-center">
+<div class="col-span-6 flex items-center gap-space-sm">
+<div class="w-3.5 h-3.5 rounded-sm bg-primary flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-on-primary text-[11px] font-bold">check</span>
+</div>
+<div class="flex items-center gap-space-2xs cursor-pointer hover:text-primary">
+<span>Name</span>
+<span class="material-symbols-outlined text-[12px] text-primary">arrow_downward</span>
+</div>
+</div>
+<div class="col-span-1 text-right cursor-pointer hover:text-primary">Ext</div>
+<div class="col-span-2 text-right cursor-pointer hover:text-primary">Size</div>
+<div class="col-span-2 text-right cursor-pointer hover:text-primary">Modified</div>
+<div class="col-span-1 text-right">Perms</div>
+</div>
+<!-- File Table Body -->
+<div class="flex-1 overflow-y-auto font-body-md text-body-md divide-y divide-transparent">
+<!-- Row: Parent Directory -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface-variant">
+<div class="col-span-6 flex items-center gap-space-sm">
+<div class="w-3.5 h-3.5"></div>
+<span class="material-symbols-outlined text-primary text-[16px]">folder_open</span>
+<span class="font-headline-md text-headline-md font-semibold tracking-wide">..</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">[UP]</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">&lt;DIR&gt;</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">--</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">drwxr-xr-x</div>
+</div>
+<!-- Row 1: Selected Folder (4K B-Roll) -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center bg-primary-container/20 text-on-surface cursor-pointer relative transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-primary"></div>
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[10px] font-bold">check</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[16px]">folder</span>
+<span class="font-body-md text-body-md text-primary font-medium truncate">4K_B-Roll_Footage/</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">DIR</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">42.8 GB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 14, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">drwxr-xr-x</div>
+</div>
+<!-- Row 2: Selected Folder (Audio Masters) -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center bg-primary-container/20 text-on-surface cursor-pointer relative transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-primary"></div>
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[10px] font-bold">check</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[16px]">folder</span>
+<span class="font-body-md text-body-md text-primary font-medium truncate">Audio_Masters_Stems/</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">DIR</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">14.2 GB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 12, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">drwxr-xr-x</div>
+</div>
+<!-- Row 3: Active Cursor Highlight (MOV) -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center bg-surface-container-highest/70 text-on-surface cursor-pointer relative transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline"></div>
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-tertiary text-[16px]">movie</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">Final_Cut_Export_v04.mov</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-tertiary font-medium">MOV</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface font-medium">8.4 GB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-primary">Yesterday 18:24</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">-rw-r--r--</div>
+</div>
+<!-- Row 4: File CUBE -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-secondary text-[16px]">palette</span>
+<span class="font-body-md text-body-md truncate">color_grade_lut_dci_p3.cube</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-secondary">CUBE</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">1.2 MB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 10, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">-rw-r--r--</div>
+</div>
+<!-- Row 5: File PDF -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-error text-[16px]">picture_as_pdf</span>
+<span class="font-body-md text-body-md truncate">production_notes_signed.pdf</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-error">PDF</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">4.8 MB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 08, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">-rw-r--r--</div>
+</div>
+<!-- Row 6: File JSON -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-amber-400 text-[16px]">data_object</span>
+<span class="font-body-md text-body-md truncate">sync_manifest.json</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-amber-400">JSON</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">42 KB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 14, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">-rw-r--r--</div>
+</div>
+<!-- Visual Filler Space to Maintain Pro Terminal Grid Density -->
+<div class="p-space-base mt-space-lg flex items-center justify-between bg-surface-container-lowest/50 rounded mx-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">APFS Snapshot Guard Active</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Instant rollback enabled on staging queue operations.</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary px-space-sm py-space-2xs bg-secondary/10 rounded">CHECKSUM READY</span>
+</div>
+</div>
+<!-- Left Pane Footer Status Strip -->
+<div class="bg-surface-container px-space-base py-space-xs flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<div class="flex items-center gap-space-xs">
+<span class="text-primary font-semibold">2 items selected</span>
+<span class="text-on-surface font-medium">(57.0 GB)</span>
+<span class="text-outline-variant">|</span>
+<span>7 items listed</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span>Free: <strong class="text-on-surface">184.2 GB</strong> of 512 GB</span>
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 64%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- CENTER SPLIT TOOLBAR / PIPELINE CONTROLLER -->
+<div class="w-10 flex flex-col items-center justify-center gap-space-sm bg-surface-container-lowest rounded shadow-md z-10 py-space-sm">
+<button class="w-8 h-8 rounded bg-primary-container hover:bg-primary text-on-primary-container flex items-center justify-center transition-all shadow hover:scale-105 active:scale-95 group" title="Copy Left to Right (F5)">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center transition-all group" title="Move Left to Right (F6)">
+<span class="material-symbols-outlined text-[18px]">double_arrow</span>
+</button>
+<div class="w-4 h-[1px] bg-outline-variant/40 my-space-2xs"></div>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center transition-all" title="Compare Directories / Hashes">
+<span class="material-symbols-outlined text-[18px] text-tertiary">difference</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-secondary hover:text-on-secondary text-secondary flex items-center justify-center transition-all" title="Synchronize Bidirectional">
+<span class="material-symbols-outlined text-[18px]">sync_alt</span>
+</button>
+<div class="w-4 h-[1px] bg-outline-variant/40 my-space-2xs"></div>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center transition-all" title="Copy Right to Left">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center transition-all" title="Swap Panes (Ctrl+U)">
+<span class="material-symbols-outlined text-[18px]">swap_horizontal_circle</span>
+</button>
+</div>
+<!-- RIGHT PANE: Windows 11 Pro Remote Workstation via LAN 10GbE -->
+<section class="flex-1 flex flex-col bg-surface-container-low rounded shadow-md overflow-hidden min-w-[380px]" id="right-pane" tabindex="0">
+<!-- Pane Master Header: Windows Node Info -->
+<div class="bg-surface-container-high px-space-base py-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-5 h-5 rounded flex items-center justify-center bg-secondary/10 text-secondary">
+<span class="material-symbols-outlined text-[14px]">desktop_windows</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold truncate">WIN-STUDIO-RIG</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">192.168.1.140</span>
+<span class="flex items-center gap-space-2xs font-data-tabular-sm text-data-tabular-sm text-secondary bg-secondary/10 px-space-xs py-space-2xs rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              0.8 ms
+            </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<!-- Drive Selector Dropdown Pill -->
+<div class="relative group">
+<button class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-2xs rounded hover:bg-surface-bright transition-colors text-on-surface" type="button">
+<span class="material-symbols-outlined text-secondary text-[15px]">storage</span>
+<span class="font-data-tabular-sm text-data-tabular-sm font-medium">D:\ NVMe_Raid</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary">1.1 TB Free</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">expand_more</span>
+</button>
+</div>
+<!-- Windows Drive Quick Jump Buttons -->
+<div class="flex items-center bg-surface-container-lowest p-space-2xs rounded gap-space-2xs text-on-surface-variant">
+<button class="px-space-xs py-space-2xs rounded hover:bg-surface-bright hover:text-on-surface font-keybind-label text-keybind-label transition-colors" title="Mount C:\ System">
+              [C:]
+            </button>
+<button class="px-space-xs py-space-2xs rounded bg-surface-container-high text-secondary font-keybind-label text-keybind-label" title="Mount D:\ HighSpeed RAID">
+              [D:]
+            </button>
+<button class="px-space-xs py-space-2xs rounded hover:bg-surface-bright hover:text-on-surface font-keybind-label text-keybind-label transition-colors" title="Mount Z:\ Network Storage">
+              [Z:]
+            </button>
+</div>
+</div>
+</div>
+<!-- Tab Strip & Breadcrumb Shell -->
+<div class="flex flex-col bg-surface-container">
+<!-- Tab Bar -->
+<div class="flex items-center px-space-xs pt-space-xs gap-space-2xs bg-surface-container-lowest">
+<div class="flex items-center gap-space-xs px-space-base py-space-2xs bg-surface-container rounded-t text-secondary font-body-sm text-body-sm font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">folder_shared</span>
+<span class="truncate">Incoming_From_Mac</span>
+<span class="material-symbols-outlined text-[12px] text-on-surface-variant hover:text-on-surface cursor-pointer">close</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-base py-space-2xs bg-surface-container-low rounded-t text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[14px]">archive</span>
+<span class="truncate">Archive_Cold</span>
+</div>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-secondary transition-colors" title="New Tab">
+<span class="material-symbols-outlined text-[15px]">add</span>
+</button>
+</div>
+<!-- Breadcrumbs Navigation Bar -->
+<div class="flex items-center justify-between px-space-sm py-space-2xs bg-surface-container gap-space-xs">
+<div class="flex items-center gap-space-2xs min-w-0 flex-1 overflow-hidden font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span class="text-on-surface font-semibold">D:\</span>
+<span>PostProduction</span>
+<span>\</span>
+<span class="text-secondary font-medium bg-secondary/10 px-space-xs rounded">Incoming_From_Mac</span>
+</div>
+<div class="flex items-center gap-space-2xs">
+<button class="p-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-colors" title="Go Up One Level">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+</button>
+<button class="p-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-colors" title="Refresh Directory (F2)">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+</button>
+<button class="p-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-colors" title="Terminal Shell in this folder">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+</button>
+</div>
+</div>
+</div>
+<!-- File Table Header -->
+<div class="grid grid-cols-12 px-space-sm py-space-2xs bg-surface-container-high font-data-tabular-sm text-data-tabular-sm text-on-surface-variant font-medium items-center">
+<div class="col-span-6 flex items-center gap-space-sm">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-highest flex items-center justify-center cursor-pointer"></div>
+<div class="flex items-center gap-space-2xs cursor-pointer hover:text-secondary">
+<span>Name</span>
+<span class="material-symbols-outlined text-[12px] text-secondary">arrow_downward</span>
+</div>
+</div>
+<div class="col-span-1 text-right cursor-pointer hover:text-secondary">Ext</div>
+<div class="col-span-2 text-right cursor-pointer hover:text-secondary">Size</div>
+<div class="col-span-2 text-right cursor-pointer hover:text-secondary">Modified</div>
+<div class="col-span-1 text-right">Attr</div>
+</div>
+<!-- File Table Body -->
+<div class="flex-1 overflow-y-auto font-body-md text-body-md divide-y divide-transparent">
+<!-- Row: Parent Directory -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface-variant">
+<div class="col-span-6 flex items-center gap-space-sm">
+<div class="w-3.5 h-3.5"></div>
+<span class="material-symbols-outlined text-secondary text-[16px]">folder_open</span>
+<span class="font-headline-md text-headline-md font-semibold tracking-wide">..</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">[UP]</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">&lt;DIR&gt;</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">--</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">D</div>
+</div>
+<!-- Row 1: Folder Davinci Resolve -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-secondary text-[16px]">folder_zip</span>
+<span class="font-body-md text-body-md font-medium text-on-surface truncate">Davinci_Resolve_Project_Archives/</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">DIR</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">86.4 GB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 13, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">R/A</div>
+</div>
+<!-- Row 2: Folder Raw Proxies -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-secondary text-[16px]">folder</span>
+<span class="font-body-md text-body-md font-medium text-on-surface truncate">Raw_Proxies_ProRes/</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">DIR</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">112.0 GB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 11, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">A</div>
+</div>
+<!-- Row 3: EXR Render Frame Sequence -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-tertiary-container text-[16px]">burst_mode</span>
+<span class="font-body-md text-body-md text-on-surface truncate">VFX_Composite_Render_Frame001-900.exr</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-tertiary-container">EXR</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">18.2 GB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 09, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">A</div>
+</div>
+<!-- Row 4: Studio WAV -->
+<div class="grid grid-cols-12 px-space-sm h-row-standard items-center hover:bg-surface-container cursor-pointer transition-colors text-on-surface">
+<div class="col-span-6 flex items-center gap-space-sm min-w-0">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface-container-high flex items-center justify-center"></div>
+<span class="material-symbols-outlined text-secondary text-[16px]">graphic_eq</span>
+<span class="font-body-md text-body-md text-on-surface truncate">studio_audio_mixdown.wav</span>
+</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-secondary">WAV</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">640 MB</div>
+<div class="col-span-2 text-right font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Nov 12, 2024</div>
+<div class="col-span-1 text-right font-data-tabular-sm text-data-tabular-sm text-outline">A</div>
+</div>
+<!-- Staging Slot / Drop Target Area -->
+<div class="p-space-base mt-space-md mx-space-sm rounded bg-surface-container-lowest/60 flex flex-col items-center justify-center text-center">
+<div class="flex items-center gap-space-xs text-secondary font-headline-md text-headline-md mb-space-2xs">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+<span>Target Ready: Ready to Receive Payload</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mb-space-sm">
+            Drop files here or press <span class="text-primary font-keybind-label text-keybind-label bg-surface-container px-space-xs py-space-2xs rounded">F5</span> to copy 2 selected directories from macOS station (57.0 GB via 10GbE direct stream).
+          </p>
+<div class="flex items-center gap-space-sm">
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">ESTIMATED TRANSFER TIME: ~49 SECONDS @ 1.18 GB/s</span>
+</div>
+</div>
+</div>
+<!-- Right Pane Footer Status Strip -->
+<div class="bg-surface-container px-space-base py-space-xs flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<div class="flex items-center gap-space-xs">
+<span class="text-on-surface font-semibold">0 items selected</span>
+<span class="text-outline-variant">|</span>
+<span>4 items listed</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span>Free: <strong class="text-secondary font-semibold">1.14 TB</strong> of 2.0 TB</span>
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 57%;"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Live LAN Pipe Telemetry & Real-Time Flow Floating Drawer -->
+<div class="px-space-base pb-space-xs w-full">
+<div class="bg-surface-container-low rounded p-space-base shadow-md flex items-center justify-between gap-space-lg">
+<!-- Transfer HUD Left: Staged items summary -->
+<div class="flex items-center gap-space-base min-w-[280px]">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">rocket_launch</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-medium">Staged Transfer Payload</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary bg-secondary/15 px-space-xs py-space-2xs rounded uppercase font-semibold">Ready</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+            4K_B-Roll_Footage/ + Audio_Masters_Stems/ → D:\Incoming_From_Mac
+          </div>
+</div>
+</div>
+<!-- Transfer HUD Center: Metric Gauges -->
+<div class="flex-1 flex flex-col gap-space-2xs max-w-xl">
+<div class="flex items-center justify-between font-data-tabular-sm text-data-tabular-sm">
+<span class="text-on-surface-variant">Interface: <strong class="text-on-surface">en0 (PCIe 10GBASE-T) ↔ eth0 (Mellanox ConnectX-4)</strong></span>
+<span class="text-secondary font-medium">Bandwidth Ceiling: 9.8 Gbps (1.22 GB/s)</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-0 transition-all duration-300" id="live-progress-bar"></div>
+</div>
+<div class="flex items-center justify-between font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span>Protocol: SMB3 / RDMA Direct Multichannel</span>
+<span>Zero packet loss • Frame size 9000 bytes (Jumbo)</span>
+</div>
+</div>
+<!-- Transfer HUD Right: Action Buttons -->
+<div class="flex items-center gap-space-sm">
+<button class="px-space-base py-space-xs rounded bg-primary text-on-primary font-headline-md text-headline-md font-semibold hover:bg-primary-fixed-dim transition-all shadow active:scale-95 flex items-center gap-space-xs" id="simulate-sync-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Initiate Sync (F5)</span>
+</button>
+<button class="px-space-base py-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-headline-md transition-colors" type="button">
+          Verify Hash (SHA-256)
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Client-side Script -->
+<script>
+    (function initCommander() {
+      const leftPane = document.getElementById('left-pane');
+      const rightPane = document.getElementById('right-pane');
+      const syncBtn = document.getElementById('simulate-sync-btn');
+      const progressBar = document.getElementById('live-progress-bar');
+
+      // Focus switching micro-interaction
+      if (leftPane && rightPane) {
+        leftPane.addEventListener('click', () => {
+          leftPane.classList.add('ring-1', 'ring-primary/40');
+          rightPane.classList.remove('ring-1', 'ring-secondary/40');
+        });
+
+        rightPane.addEventListener('click', () => {
+          rightPane.classList.add('ring-1', 'ring-secondary/40');
+          leftPane.classList.remove('ring-1', 'ring-primary/40');
+        });
+      }
+
+      // Transfer demo animation
+      if (syncBtn && progressBar) {
+        let isSyncing = false;
+        syncBtn.addEventListener('click', () => {
+          if (isSyncing) return;
+          isSyncing = true;
+          syncBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Streaming 1.18 GB/s...</span>';
+          syncBtn.classList.replace('bg-primary', 'bg-secondary');
+          syncBtn.classList.replace('text-on-primary', 'text-on-secondary');
+
+          let progress = 0;
+          const interval = setInterval(() => {
+            progress += 5;
+            progressBar.style.width = progress + '%';
+            if (progress >= 100) {
+              clearInterval(interval);
+              setTimeout(() => {
+                syncBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span><span>Sync Complete (57.0 GB)</span>';
+                setTimeout(() => {
+                  progressBar.style.width = '0%';
+                  syncBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">bolt</span><span>Initiate Sync (F5)</span>';
+                  syncBtn.classList.replace('bg-secondary', 'bg-primary');
+                  syncBtn.classList.replace('text-on-secondary', 'text-on-primary');
+                  isSyncing = false;
+                }, 2500);
+              }, 400);
+            }
+          }, 60);
+        });
+      }
+
+      // Keyboard navigation hook for classic commander experience
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          if (document.activeElement === leftPane) {
+            rightPane.focus();
+          } else {
+            leftPane.focus();
+          }
+        }
+        if (e.key === 'F5') {
+          e.preventDefault();
+          syncBtn && syncBtn.click();
+        }
+      });
+    })();
+  </script>
+</div></main><footer class="fixed bottom-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-t border-outline-variant/30"><div class="h-function-bar-height w-full px-space-xs grid grid-cols-8 gap-space-xs items-center bg-surface-container-low border-b border-outline-variant/20"><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F3</span><span class="font-body-sm text-body-sm">View</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F4</span><span class="font-body-sm text-body-sm">Edit</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F5</span><span class="font-body-sm text-body-sm">Copy (F-&gt;T)</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F6</span><span class="font-body-sm text-body-sm">Move</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F7</span><span class="font-body-sm text-body-sm">NewFolder</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F8</span><span class="font-body-sm text-body-sm">Delete</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F9</span><span class="font-body-sm text-body-sm">Menu</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F10</span><span class="font-body-sm text-body-sm">Exit</span></button></div><div class="h-statusbar-height w-full px-space-base flex items-center justify-between bg-surface-container-lowest font-data-tabular-sm text-data-tabular-sm text-on-surface-variant"><div class="flex items-center gap-space-base"><span>Selected: 2 items (14.2 MB)</span><span class="text-outline-variant">|</span><span>Free: 482.6 GB / 2.0 TB (NVMe Pool 0)</span></div><div class="flex items-center gap-space-base"><span>Encoding: UTF-8</span><span class="text-outline-variant">|</span><span class="text-secondary font-medium">Socket: ESTABLISHED</span><span>v2.4.0-stable</span></div></div></footer></body></html>

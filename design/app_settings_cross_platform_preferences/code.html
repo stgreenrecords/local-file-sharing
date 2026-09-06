@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-variant":"#31353c","secondary-fixed-dim":"#4de082","background":"#10141a","surface-container-highest":"#31353c","outline-variant":"#3e484f","primary-fixed-dim":"#7bd0ff","on-primary-container":"#004965","surface-container-low":"#181c22","on-primary":"#00354a","secondary-fixed":"#6dfe9c","tertiary-fixed-dim":"#bdc2ff","on-background":"#dfe2eb","tertiary":"#c5c9ff","on-primary-fixed":"#001e2c","on-tertiary":"#131e8c","secondary-container":"#00b55d","on-secondary-fixed":"#00210c","secondary":"#4de082","surface":"#10141a","tertiary-container":"#a3abff","inverse-surface":"#dfe2eb","on-secondary":"#003919","surface-container-lowest":"#0a0e14","inverse-on-surface":"#2d3137","primary-container":"#38bdf8","surface-container":"#1c2026","surface-dim":"#10141a","on-surface-variant":"#bdc8d1","error-container":"#93000a","outline":"#87929a","tertiary-fixed":"#e0e0ff","on-tertiary-fixed":"#000767","primary":"#8ed5ff","surface-container-high":"#262a31","error":"#ffb4ab","primary-fixed":"#c4e7ff","inverse-primary":"#00668a","on-surface":"#dfe2eb","on-error-container":"#ffdad6","surface-bright":"#353940","on-error":"#690005","on-tertiary-fixed-variant":"#2f3aa3","on-secondary-container":"#003e1c","on-tertiary-container":"#2c37a0","on-secondary-fixed-variant":"#005227","surface-tint":"#7bd0ff","on-primary-fixed-variant":"#004c69"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"8px","pane-gutter":"1px","header-height":"36px","space-sm":"6px","function-bar-height":"32px","space-base":"12px","row-compact":"22px","row-standard":"26px","space-lg":"16px","space-xs":"4px","space-xl":"24px","space-2xs":"2px","statusbar-height":"24px"},"fontFamily":{"data-tabular-sm":["JetBrains Mono"],"body-sm":["Geist"],"headline-xl":["Geist"],"keybind-label":["JetBrains Mono"],"headline-lg":["Geist"],"data-tabular-md":["JetBrains Mono"],"body-md":["Geist"],"data-tabular-lg":["JetBrains Mono"],"headline-md":["Geist"],"body-lg":["Geist"]},"fontSize":{"data-tabular-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.02em","fontWeight":"400"}],"body-sm":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"keybind-label":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"data-tabular-md":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"data-tabular-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-md":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.005em","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-b border-outline-variant/30"><div class="h-header-height w-full px-space-base flex items-center justify-between border-b border-outline-variant/20 bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs mr-space-sm"><span class="w-3 h-3 rounded-full bg-error/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-amber-400/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-secondary/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[16px]">terminal</span><span class="font-headline-md text-headline-md text-on-surface font-medium tracking-tight">OmniCommander v2.4 (Cross-Platform Dual-Pane)</span></div></div><div class="flex items-center gap-space-base"><div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded bg-surface-container border border-outline-variant/40"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium tracking-wider uppercase">LAN Active: 10 GbE / Direct Link</span><span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant ml-space-xs">4ms</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-header-height w-full px-space-base flex items-center justify-between bg-surface-container"><nav class="flex items-center h-full gap-space-xs" data-active-classes="bg-surface-container-high text-primary border-b-2 border-primary font-semibold"><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="dual-pane-commander" href="#">Dual Pane Commander</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="transfer-sync-queue" href="#">Transfer &amp; Sync Queue (3)</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="network-discovery" href="#">Network Discovery</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="settings-preferences" href="#">Settings &amp; Preferences</a></nav><div class="flex items-center gap-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm"><span class="px-space-xs py-space-2xs bg-surface-container-low border border-outline-variant/30 rounded text-on-surface">NODE: local-station-01</span><span class="text-outline">|</span><span>RAM: 3.2/32 GB</span></div></div></header><main class="w-full pt-[72px] pb-[56px] bg-surface flex-1 min-h-[calc(100vh-128px)]"><div class="flex flex-col w-full">
+<div class="w-full px-space-base py-space-sm bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+<span class="font-headline-md text-headline-md text-on-surface">Configuration &amp; Engine Preferences</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant bg-surface-container px-space-xs py-space-2xs rounded">profile: workstation-prod-lan</span>
+</div>
+<div class="flex items-center gap-space-base">
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>DAEMON: SYNCED (PID 8812)</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Config Version: v2.4.12</span>
+</div>
+</div>
+<div class="w-full grid grid-cols-12 min-h-[calc(100vh-196px)] gap-pane-gutter bg-surface-container-lowest">
+<aside class="col-span-3 bg-surface-container-low p-space-sm flex flex-col justify-between">
+<div class="flex flex-col gap-space-2xs" id="nav-group">
+<div class="px-space-sm py-space-xs mb-space-xs">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">Subsystem Config</span>
+</div>
+<button class="nav-tab w-full text-left px-space-base py-space-sm rounded flex items-center justify-between transition-colors bg-surface-container-highest text-primary" data-tab="general" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px]">display_settings</span>
+<span class="font-body-md text-body-md font-medium">General &amp; UI Density</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">01</span>
+</button>
+<button class="nav-tab w-full text-left px-space-base py-space-sm rounded flex items-center justify-between transition-colors hover:bg-surface-container text-on-surface" data-tab="translation" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+<span class="font-body-md text-body-md font-medium">Cross-Platform Path Translation</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary">ACTIVE</span>
+</button>
+<button class="nav-tab w-full text-left px-space-base py-space-sm rounded flex items-center justify-between transition-colors hover:bg-surface-container text-on-surface" data-tab="engine" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span class="font-body-md text-body-md font-medium">Transfer Engine &amp; Bandwidth</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">10 GbE</span>
+</button>
+<button class="nav-tab w-full text-left px-space-base py-space-sm rounded flex items-center justify-between transition-colors hover:bg-surface-container text-on-surface" data-tab="security" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px]">key</span>
+<span class="font-body-md text-body-md font-medium">Network &amp; Security Credentials</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">TLS 1.3</span>
+</button>
+<button class="nav-tab w-full text-left px-space-base py-space-sm rounded flex items-center justify-between transition-colors hover:bg-surface-container text-on-surface" data-tab="shortcuts" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px]">keyboard</span>
+<span class="font-body-md text-body-md font-medium">Hotkeys &amp; Commander Shortcuts</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary">TC-Compat</span>
+</button>
+<div class="mt-space-lg pt-space-md">
+<div class="px-space-sm py-space-xs mb-space-xs">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">Live System Telemetry</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex flex-col gap-space-sm">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Engine Workers</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary">16 Thread Pools</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-[68%] transition-all duration-300"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ring Buffer Usage</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary">43.8 / 64 MB</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full w-[62%] transition-all duration-300"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+<span class="font-data-tabular-sm text-data-tabular-sm uppercase">Active Node ID</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface truncate">SHA256:7f08b39c0fae2b109e</span>
+</div>
+</aside>
+<main class="col-span-9 bg-surface p-space-lg flex flex-col gap-space-xl overflow-y-auto max-h-[calc(100vh-196px)]">
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-lg rounded shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">arrow_left</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Cross-Platform Path &amp; Filename Translation</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage filesystem impedance between Windows NTFS and macOS APFS/POSIX paths.</p>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary bg-surface-container-high px-space-sm py-space-2xs rounded">REALTIME INTERCEPT</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-space-xs">
+<label class="p-space-md rounded bg-surface-container hover:bg-surface-bright/40 transition-colors flex items-start gap-space-md cursor-pointer">
+<input checked="" class="mt-1 w-4 h-4 rounded bg-surface-container-lowest text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-body-md text-body-md font-medium text-on-surface">Auto-sanitize incompatible Windows characters</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Replaces reserved characters (<code class="font-data-tabular-sm text-primary bg-surface-container-lowest px-1 rounded">\ / : * ? " &lt; &gt; |</code>) from macOS filenames with safe underscores or normalized Unicode variants during write operations.</p>
+</div>
+</label>
+<label class="p-space-md rounded bg-surface-container hover:bg-surface-bright/40 transition-colors flex items-start gap-space-md cursor-pointer">
+<input checked="" class="mt-1 w-4 h-4 rounded bg-surface-container-lowest text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-body-md text-body-md font-medium text-on-surface">Strip macOS metadata artifacts</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automatically purges invisible <code class="font-data-tabular-sm text-error bg-surface-container-lowest px-1 rounded">.DS_Store</code>, <code class="font-data-tabular-sm text-error bg-surface-container-lowest px-1 rounded">._ AppleDouble</code>, and Spotlight indexing trees when target volume is NTFS/SMB.</p>
+</div>
+</label>
+</div>
+<div class="flex flex-col gap-space-xs mt-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-on-surface">Path Translation Mapping Table (Windows UNC &lt;---&gt; macOS POSIX)</span>
+<button class="px-space-sm py-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-primary font-body-sm text-body-sm flex items-center gap-space-xs transition-colors" id="add-rule-btn" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>Add Path Translation Rule</span>
+</button>
+</div>
+<div class="rounded bg-surface-container-lowest overflow-hidden">
+<div class="grid grid-cols-12 bg-surface-container px-space-base py-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">
+<span class="col-span-5">Windows Host UNC / Drive Letter</span>
+<span class="col-span-1 text-center">Direction</span>
+<span class="col-span-5">macOS POSIX Target Mount</span>
+<span class="col-span-1 text-right">Action</span>
+</div>
+<div class="flex flex-col" id="rule-rows">
+<div class="grid grid-cols-12 px-space-base py-space-sm items-center hover:bg-surface-container-low transition-colors">
+<div class="col-span-5 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">desktop_windows</span>
+<input class="w-full bg-surface-container px-space-sm py-space-2xs rounded font-data-tabular-md text-data-tabular-md text-on-surface outline-none focus:bg-surface-container-high" type="text" value="D:\PostProduction\"/>
+</div>
+<div class="col-span-1 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+</div>
+<div class="col-span-5 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">laptop_mac</span>
+<input class="w-full bg-surface-container px-space-sm py-space-2xs rounded font-data-tabular-md text-data-tabular-md text-on-surface outline-none focus:bg-surface-container-high" type="text" value="/Volumes/HighSpeed_NVMe_Raid/PostProduction/"/>
+</div>
+<div class="col-span-1 flex items-center justify-end">
+<button class="text-on-surface-variant hover:text-error transition-colors p-1" title="Remove rule" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-12 px-space-base py-space-sm items-center bg-surface-container-low/40 hover:bg-surface-container-low transition-colors">
+<div class="col-span-5 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">desktop_windows</span>
+<input class="w-full bg-surface-container px-space-sm py-space-2xs rounded font-data-tabular-md text-data-tabular-md text-on-surface outline-none focus:bg-surface-container-high" type="text" value="C:\Users\alex\"/>
+</div>
+<div class="col-span-1 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+</div>
+<div class="col-span-5 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">laptop_mac</span>
+<input class="w-full bg-surface-container px-space-sm py-space-2xs rounded font-data-tabular-md text-data-tabular-md text-on-surface outline-none focus:bg-surface-container-high" type="text" value="/Volumes/WinSystem_C/Users/alex/"/>
+</div>
+<div class="col-span-1 flex items-center justify-end">
+<button class="text-on-surface-variant hover:text-error transition-colors p-1" title="Remove rule" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-lg rounded shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">speed</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Transfer Engine &amp; Bandwidth Optimization</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Low-latency socket allocation, multi-threaded pipelines, and hardware hashing.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-primary bg-surface-container px-space-sm py-space-2xs rounded">
+<span class="material-symbols-outlined text-[14px]">memory</span>
+<span>AVX2/AVX-512 ACTIVE</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm mt-space-xs">
+<span class="font-body-md text-body-md font-medium text-on-surface">Network Transport Protocol</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<label class="p-space-md rounded bg-surface-container-highest flex flex-col justify-between cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<input checked="" class="accent-primary" name="transfer_protocol" type="radio" value="omnidirect"/>
+<span class="font-body-md text-body-md font-semibold text-primary">OmniDirect P2P Turbo</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary bg-surface-container px-space-xs py-space-2xs rounded">RECOMMENDED</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">Zero-copy memory mapped TCP/UDP multiplexed streams. Bypasses OS kernel bottlenecks for line-rate 10GbE/40GbE performance.</p>
+<div class="mt-space-sm flex items-center gap-space-xs text-secondary font-data-tabular-sm text-data-tabular-sm">
+<span class="material-symbols-outlined text-[14px]">rocket_launch</span>
+<span>Max Measured: 1.18 GB/s</span>
+</div>
+</label>
+<label class="p-space-md rounded bg-surface-container hover:bg-surface-container-high transition-colors flex flex-col justify-between cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<input class="accent-primary" name="transfer_protocol" type="radio" value="smb"/>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Standard SMBv3</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">LEGACY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">Native OS mount integration with AES-128-GCM multichannel encryption. High compatibility across standard corporate file servers.</p>
+<div class="mt-space-sm flex items-center gap-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>Encrypted In-Flight</span>
+</div>
+</label>
+<label class="p-space-md rounded bg-surface-container hover:bg-surface-container-high transition-colors flex flex-col justify-between cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<input class="accent-primary" name="transfer_protocol" type="radio" value="sftp"/>
+<span class="font-body-md text-body-md font-semibold text-on-surface">SFTP / SSH Tunnel</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">WAN/SECURE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">Single-port WAN traversals via OpenSSH agent auth. Optimized for remote datacenters and internet transport links.</p>
+<div class="mt-space-sm flex items-center gap-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="material-symbols-outlined text-[14px]">vpn_key</span>
+<span>Port 22 SSH Auth</span>
+</div>
+</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mt-space-sm">
+<div class="p-space-md bg-surface-container rounded flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-medium text-on-surface">Stream Workers</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-semibold" id="worker-count-label">16 Workers (10GbE)</span>
+</div>
+<input class="w-full accent-primary bg-surface-container-lowest h-1.5 rounded cursor-pointer" id="worker-slider" max="64" min="1" type="range" value="16"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Controls synchronous I/O threads. 16 workers fully saturate modern NVMe RAID stripes without CPU contention.</span>
+</div>
+<div class="p-space-md bg-surface-container rounded flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-medium text-on-surface">Buffer Window</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary">SLAB ALLOC</span>
+</div>
+<select class="w-full bg-surface-container-lowest font-data-tabular-md text-data-tabular-md text-on-surface px-space-sm py-space-xs rounded outline-none cursor-pointer">
+<option value="16">16 MB Sequential Buffer</option>
+<option value="32">32 MB Low-Overhead Buffer</option>
+<option selected="" value="64">64 MB Ring Buffer (Optimal NVMe)</option>
+<option value="128">128 MB High-Bandwidth Jumbo</option>
+<option value="256">256 MB Extreme Cache Stream</option>
+</select>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Allocated in RAM to coalesce micro file-descriptor flushes into high-efficiency block segments.</span>
+</div>
+<div class="p-space-md bg-surface-container rounded flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-medium text-on-surface">Checksum Verification</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary">HARDWARE READY</span>
+</div>
+<select class="w-full bg-surface-container-lowest font-data-tabular-md text-data-tabular-md text-on-surface px-space-sm py-space-xs rounded outline-none cursor-pointer">
+<option selected="" value="sha256">SHA-256 (Hardware AVX2 / ARM NEON)</option>
+<option value="blake3">BLAKE3 (Ultra-Fast Hyper-Parallel)</option>
+<option value="xxhash64">xxHash64 (Maximum Speed / Integrity Check)</option>
+<option value="crc32c">CRC32C (Hardware Slicing-by-8)</option>
+<option value="disabled">Disabled (Unchecked Raw Speed)</option>
+</select>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Immediate on-the-fly verification before target file handles close. Guarantees bit-exact duplication.</span>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-lg rounded shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">keyboard_alt</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Keyboard Shortcuts &amp; Commander Compatibility</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Legacy keybinding profiles matching vintage Norton, Total Commander, or modern hybrid IDE layouts.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Preset Schema:</span>
+<select class="bg-surface-container font-data-tabular-md text-data-tabular-md text-primary px-space-sm py-space-xs rounded outline-none cursor-pointer">
+<option selected="" value="tc">Total Commander Classic (F3-F8)</option>
+<option value="nc">Norton Commander Heritage (1993)</option>
+<option value="mac">macOS Finder Hybrid (Cmd-based)</option>
+<option value="mc">Midnight Commander (GNU/Linux)</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm mt-space-xs">
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-primary rounded">F3</span>
+<span class="font-body-md text-body-md text-on-surface">Quick Look / Hex Viewer</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">visibility</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-primary rounded">F4</span>
+<span class="font-body-md text-body-md text-on-surface">Open in External Editor</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">edit</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-secondary rounded">F5</span>
+<span class="font-body-md text-body-md text-on-surface">Copy (Focus -&gt; Target)</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px]">file_copy</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-secondary rounded">F6</span>
+<span class="font-body-md text-body-md text-on-surface">Move / Atomic Rename</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px]">drive_file_move</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-primary rounded">F7</span>
+<span class="font-body-md text-body-md text-on-surface">Create Directory / Path</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">create_new_folder</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-error rounded">F8 / Shift+Del</span>
+<span class="font-body-md text-body-md text-on-surface">Delete / Force Wipe</span>
+</div>
+<span class="material-symbols-outlined text-error text-[16px]">delete_forever</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-primary rounded">Tab</span>
+<span class="font-body-md text-body-md text-on-surface">Switch Active Split Pane</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">vertical_split</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-primary rounded">Insert / Space</span>
+<span class="font-body-md text-body-md text-on-surface">Tag Item &amp; Step Next</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">check_box</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs bg-surface-container-lowest font-keybind-label text-keybind-label text-primary rounded">Ctrl + D</span>
+<span class="font-body-md text-body-md text-on-surface">Direct Folder Bookmarks</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">bookmark</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<div class="w-full bg-surface-container-low px-space-base py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-base py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-space-xs" id="btn-reset" type="button">
+<span class="material-symbols-outlined text-[14px]">restart_alt</span>
+<span>Restore Defaults</span>
+</button>
+<button class="px-space-base py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-space-xs" id="btn-export" type="button">
+<span class="material-symbols-outlined text-[14px]">file_download</span>
+<span>Export Config (.json)</span>
+</button>
+</div>
+<div class="flex items-center gap-space-base">
+<div class="hidden items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-secondary" id="save-status">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>PREFERENCES COMMITTED</span>
+</div>
+<button class="px-space-lg py-space-xs rounded bg-primary text-on-primary hover:bg-primary-container font-headline-md text-headline-md font-semibold transition-colors flex items-center gap-space-xs shadow-md" id="btn-save" type="button">
+<span class="material-symbols-outlined text-[16px]">save</span>
+<span>Save &amp; Apply Changes</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-primary/80 ml-space-xs bg-on-primary/10 px-1 rounded">Ctrl+S</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const workerSlider = document.getElementById('worker-slider');
+    const workerCountLabel = document.getElementById('worker-count-label');
+    const saveBtn = document.getElementById('btn-save');
+    const saveStatus = document.getElementById('save-status');
+    const addRuleBtn = document.getElementById('add-rule-btn');
+    const ruleRows = document.getElementById('rule-rows');
+    const navTabs = document.querySelectorAll('.nav-tab');
+
+    if (workerSlider && workerCountLabel) {
+      workerSlider.addEventListener('input', function(e) {
+        const val = e.target.value;
+        let suffix = val >= 32 ? '(Max Saturation)' : val >= 16 ? '(10GbE Optimal)' : '(Standard Disk)';
+        workerCountLabel.textContent = `${val} Workers ${suffix}`;
+      });
+    }
+
+    if (saveBtn && saveStatus) {
+      saveBtn.addEventListener('click', function() {
+        saveStatus.classList.remove('hidden');
+        saveStatus.classList.add('flex');
+        setTimeout(() => {
+          saveStatus.classList.add('hidden');
+          saveStatus.classList.remove('flex');
+        }, 3200);
+      });
+    }
+
+    if (addRuleBtn && ruleRows) {
+      addRuleBtn.addEventListener('click', function() {
+        const newRow = document.createElement('div');
+        newRow.className = 'grid grid-cols-12 px-space-base py-space-sm items-center hover:bg-surface-container-low transition-colors';
+        newRow.innerHTML = `
+          <div class="col-span-5 flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[16px]">desktop_windows</span>
+            <input type="text" placeholder="E:\\NewShare\\" class="w-full bg-surface-container px-space-sm py-space-2xs rounded font-data-tabular-md text-data-tabular-md text-on-surface outline-none focus:bg-surface-container-high">
+          </div>
+          <div class="col-span-1 flex items-center justify-center text-secondary">
+            <span class="material-symbols-outlined text-[16px]">sync_alt</span>
+          </div>
+          <div class="col-span-5 flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-secondary text-[16px]">laptop_mac</span>
+            <input type="text" placeholder="/Volumes/NewShare/" class="w-full bg-surface-container px-space-sm py-space-2xs rounded font-data-tabular-md text-data-tabular-md text-on-surface outline-none focus:bg-surface-container-high">
+          </div>
+          <div class="col-span-1 flex items-center justify-end">
+            <button type="button" class="btn-del text-on-surface-variant hover:text-error transition-colors p-1" title="Remove rule">
+              <span class="material-symbols-outlined text-[16px]">delete</span>
+            </button>
+          </div>
+        `;
+        ruleRows.appendChild(newRow);
+        const delBtn = newRow.querySelector('.btn-del');
+        if (delBtn) {
+          delBtn.addEventListener('click', () => newRow.remove());
+        }
+      });
+    }
+
+    document.querySelectorAll('#rule-rows button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const row = this.closest('.grid');
+        if (row && ruleRows.children.length > 1) {
+          row.remove();
+        }
+      });
+    });
+
+    navTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        navTabs.forEach(t => {
+          t.classList.remove('bg-surface-container-highest', 'text-primary');
+          t.classList.add('text-on-surface', 'hover:bg-surface-container');
+        });
+        this.classList.remove('hover:bg-surface-container', 'text-on-surface');
+        this.classList.add('bg-surface-container-highest', 'text-primary');
+      });
+    });
+
+    window.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        saveBtn.click();
+      }
+    });
+  })();
+</script></main><footer class="fixed bottom-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-t border-outline-variant/30"><div class="h-function-bar-height w-full px-space-xs grid grid-cols-8 gap-space-xs items-center bg-surface-container-low border-b border-outline-variant/20"><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F3</span><span class="font-body-sm text-body-sm">View</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F4</span><span class="font-body-sm text-body-sm">Edit</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F5</span><span class="font-body-sm text-body-sm">Copy (F-&gt;T)</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F6</span><span class="font-body-sm text-body-sm">Move</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F7</span><span class="font-body-sm text-body-sm">NewFolder</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F8</span><span class="font-body-sm text-body-sm">Delete</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F9</span><span class="font-body-sm text-body-sm">Menu</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F10</span><span class="font-body-sm text-body-sm">Exit</span></button></div><div class="h-statusbar-height w-full px-space-base flex items-center justify-between bg-surface-container-lowest font-data-tabular-sm text-data-tabular-sm text-on-surface-variant"><div class="flex items-center gap-space-base"><span>Selected: 2 items (14.2 MB)</span><span class="text-outline-variant">|</span><span>Free: 482.6 GB / 2.0 TB (NVMe Pool 0)</span></div><div class="flex items-center gap-space-base"><span>Encoding: UTF-8</span><span class="text-outline-variant">|</span><span class="text-secondary font-medium">Socket: ESTABLISHED</span><span>v2.4.0-stable</span></div></div></footer></body></html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-variant":"#31353c","secondary-fixed-dim":"#4de082","background":"#10141a","surface-container-highest":"#31353c","outline-variant":"#3e484f","primary-fixed-dim":"#7bd0ff","on-primary-container":"#004965","surface-container-low":"#181c22","on-primary":"#00354a","secondary-fixed":"#6dfe9c","tertiary-fixed-dim":"#bdc2ff","on-background":"#dfe2eb","tertiary":"#c5c9ff","on-primary-fixed":"#001e2c","on-tertiary":"#131e8c","secondary-container":"#00b55d","on-secondary-fixed":"#00210c","secondary":"#4de082","surface":"#10141a","tertiary-container":"#a3abff","inverse-surface":"#dfe2eb","on-secondary":"#003919","surface-container-lowest":"#0a0e14","inverse-on-surface":"#2d3137","primary-container":"#38bdf8","surface-container":"#1c2026","surface-dim":"#10141a","on-surface-variant":"#bdc8d1","error-container":"#93000a","outline":"#87929a","tertiary-fixed":"#e0e0ff","on-tertiary-fixed":"#000767","primary":"#8ed5ff","surface-container-high":"#262a31","error":"#ffb4ab","primary-fixed":"#c4e7ff","inverse-primary":"#00668a","on-surface":"#dfe2eb","on-error-container":"#ffdad6","surface-bright":"#353940","on-error":"#690005","on-tertiary-fixed-variant":"#2f3aa3","on-secondary-container":"#003e1c","on-tertiary-container":"#2c37a0","on-secondary-fixed-variant":"#005227","surface-tint":"#7bd0ff","on-primary-fixed-variant":"#004c69"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"8px","pane-gutter":"1px","header-height":"36px","space-sm":"6px","function-bar-height":"32px","space-base":"12px","row-compact":"22px","row-standard":"26px","space-lg":"16px","space-xs":"4px","space-xl":"24px","space-2xs":"2px","statusbar-height":"24px"},"fontFamily":{"data-tabular-sm":["JetBrains Mono"],"body-sm":["Geist"],"headline-xl":["Geist"],"keybind-label":["JetBrains Mono"],"headline-lg":["Geist"],"data-tabular-md":["JetBrains Mono"],"body-md":["Geist"],"data-tabular-lg":["JetBrains Mono"],"headline-md":["Geist"],"body-lg":["Geist"]},"fontSize":{"data-tabular-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.02em","fontWeight":"400"}],"body-sm":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"keybind-label":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"data-tabular-md":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"data-tabular-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-md":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.005em","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-b border-outline-variant/30"><div class="h-header-height w-full px-space-base flex items-center justify-between border-b border-outline-variant/20 bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs mr-space-sm"><span class="w-3 h-3 rounded-full bg-error/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-amber-400/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-secondary/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[16px]">terminal</span><span class="font-headline-md text-headline-md text-on-surface font-medium tracking-tight">OmniCommander v2.4 (Cross-Platform Dual-Pane)</span></div></div><div class="flex items-center gap-space-base"><div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded bg-surface-container border border-outline-variant/40"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium tracking-wider uppercase">LAN Active: 10 GbE / Direct Link</span><span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant ml-space-xs">4ms</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-header-height w-full px-space-base flex items-center justify-between bg-surface-container"><nav class="flex items-center h-full gap-space-xs" data-active-classes="bg-surface-container-high text-primary border-b-2 border-primary font-semibold"><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="dual-pane-commander" href="#">Dual Pane Commander</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="transfer-sync-queue" href="#">Transfer &amp; Sync Queue (3)</a><a aria-current="page" class="h-full px-space-base flex items-center transition-colors bg-surface-container-high text-primary border-b-2 border-primary font-semibold" data-path="network-discovery" href="#">Network Discovery</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="settings-preferences" href="#">Settings &amp; Preferences</a></nav><div class="flex items-center gap-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm"><span class="px-space-xs py-space-2xs bg-surface-container-low border border-outline-variant/30 rounded text-on-surface">NODE: local-station-01</span><span class="text-outline">|</span><span>RAM: 3.2/32 GB</span></div></div></header><main class="w-full pt-[72px] pb-[56px] bg-surface flex-1 min-h-[calc(100vh-128px)]"><div class="flex flex-col w-full">
+<section class="relative w-full overflow-hidden bg-surface-container-lowest py-space-lg px-space-xl">
+<div class="absolute -right-24 -top-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -left-20 bottom-0 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-base">
+<div class="flex items-center gap-space-base">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-primary text-[24px]">radar</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-secondary tracking-widest uppercase">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Subnet Probe Engine</span>
+<span class="text-on-surface-variant">/</span>
+<span class="text-on-surface">OmniMesh Active</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-space-xs mt-space-2xs">
+              LAN Subnet Scanner &amp; Auto-Mounter
+              <span class="px-space-xs py-space-2xs rounded bg-surface-container font-data-tabular-sm text-data-tabular-sm text-primary ml-space-xs">10 GbE Direct</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-base flex items-center gap-space-xs rounded-lg bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-headline-md shadow-md transition-all active:scale-95" id="rescan-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span>Rescan Network</span>
+<span class="font-keybind-label text-keybind-label px-space-xs py-space-2xs rounded bg-on-primary/20 text-on-primary ml-space-2xs">F5</span>
+</button>
+<button class="h-9 px-space-base flex items-center gap-space-xs rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+<span class="font-body-md text-body-md">Topology Map</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-base mt-space-xs items-center">
+<div class="lg:col-span-4 bg-surface-container-low p-space-sm rounded-lg flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">lan</span>
+<div class="flex-1 min-w-0">
+<label class="block font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase">Target Subnet Interface</label>
+<select class="w-full bg-transparent font-data-tabular-md text-data-tabular-md text-on-surface focus:outline-none cursor-pointer">
+<option class="bg-surface-container-high" selected="">192.168.1.0/24 (Ethernet 1 - 10 GbE Direct)</option>
+<option class="bg-surface-container-high">10.0.80.0/23 (Thunderbolt Bridge Direct)</option>
+<option class="bg-surface-container-high">172.16.2.0/24 (VLAN 40 - Render SAN)</option>
+</select>
+</div>
+</div>
+<div class="lg:col-span-3 bg-surface-container-low p-space-sm rounded-lg flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-secondary/15 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+</div>
+<div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">SCAN METRICS</div>
+<div class="font-data-tabular-md text-data-tabular-md text-secondary font-medium">Active • 5 machines discovered</div>
+</div>
+</div>
+<div class="lg:col-span-5 bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex flex-col min-w-0 pr-space-xs">
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">Background Discovery Beacon</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant truncate">mDNS • Bonjour • SSDP • NetBIOS</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" id="auto-detect-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<div class="px-space-xl py-space-lg flex flex-col gap-space-xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary uppercase font-bold tracking-wider">Discovered Peers</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-high font-data-tabular-sm text-data-tabular-sm text-on-surface">4 Nodes Ready</span>
+</div>
+<div class="flex items-center gap-space-base font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span class="flex items-center gap-space-2xs"><span class="w-2 h-2 rounded-full bg-secondary"></span> 10GbE Fabric</span>
+<span class="flex items-center gap-space-2xs"><span class="w-2 h-2 rounded-full bg-primary"></span> OmniDaemon Direct</span>
+<span class="flex items-center gap-space-2xs"><span class="w-2 h-2 rounded-full bg-outline"></span> Disconnected</span>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-space-lg">
+<div class="bg-surface-container rounded-xl p-space-base shadow-xl flex flex-col justify-between relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>
+<div class="flex flex-col gap-space-base pl-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-base">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-[28px]">desktop_windows</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-space-xs py-space-2xs rounded bg-primary/20 text-primary font-data-tabular-sm text-data-tabular-sm font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[12px]">window</span> Windows 11 Pro
+                  </span>
+<span class="px-space-xs py-space-2xs rounded bg-secondary/20 text-secondary font-data-tabular-sm text-data-tabular-sm font-semibold">
+                    CONNECTED • LOW LATENCY
+                  </span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-semibold mt-space-2xs">WIN-STUDIO-RIG</h3>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant mt-space-2xs">
+<span>win-studio-rig.local</span>
+<span>•</span>
+<span class="text-primary font-medium">192.168.1.140</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-tabular-lg text-data-tabular-lg text-secondary font-bold">0.4 ms</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Port 49152 Active</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">bolt</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface">OmniDaemon v2.4 Listening</span>
+</div>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span>Payload MTU: 9000 (Jumbo)</span>
+<span>•</span>
+<span class="text-secondary">AES-256-GCM Direct</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">Available Shares &amp; Block Volumes</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">[Drive C:] System NVMe</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">500 GB • PCIe 4.0 x4 • BitLocker Protected</div>
+</div>
+</div>
+<button class="h-7 px-space-sm rounded bg-surface-container-highest text-on-surface font-body-sm text-body-sm hover:bg-surface-bright flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[14px]">key</span>
+<span>Auth Required</span>
+</button>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-secondary/15 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">storage</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">[Drive D:] HighSpeed_NVMe_Raid</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-secondary">2 TB • NVMe Striped • Mounted &amp; Shared (Fast Cache)</div>
+</div>
+</div>
+<button class="h-7 px-space-sm rounded bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-headline-md flex items-center gap-space-2xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-[14px]">vertical_split</span>
+<span>Browse in Right Pane</span>
+</button>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">hard_drive</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">[Drive E:] Media_Scratch_Disk</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">4 TB • ExFAT High Speed Scratch • Unmounted</div>
+</div>
+</div>
+<button class="h-7 px-space-sm rounded bg-surface-container-highest hover:bg-surface-bright text-primary font-headline-md text-headline-md flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[14px]">add_circle</span>
+<span>Mount Drive</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs mt-space-base pt-space-sm pl-space-xs bg-surface-container-low/50 -mx-space-base -mb-space-base p-space-base rounded-b-xl">
+<div class="flex items-center gap-space-xs">
+<button class="h-8 px-space-base rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-body-sm text-body-sm flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Configure Permissions</span>
+</button>
+<button class="h-8 px-space-base rounded bg-primary-container hover:bg-primary-fixed-dim text-on-primary-container font-headline-md text-headline-md flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[16px]">splitscreen</span>
+<span>Open Dual-Pane View</span>
+</button>
+</div>
+<button class="h-8 px-space-sm rounded bg-error/15 hover:bg-error/30 text-error font-body-sm text-body-sm flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[16px]">link_off</span>
+<span>Disconnect</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-base shadow-xl flex flex-col justify-between relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="flex flex-col gap-space-base pl-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-base">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-[28px]">laptop_mac</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-space-xs py-space-2xs rounded bg-surface-bright text-on-surface font-data-tabular-sm text-data-tabular-sm font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[12px]">terminal</span> macOS Sequoia
+                  </span>
+<span class="px-space-xs py-space-2xs rounded bg-primary/20 text-primary font-data-tabular-sm text-data-tabular-sm font-semibold">
+                    DISCOVERED • AIRDROP &amp; BONJOUR
+                  </span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-semibold mt-space-2xs">MacBook-Pro-M3Max</h3>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant mt-space-2xs">
+<span>macbook-pro-m3max.local</span>
+<span>•</span>
+<span class="text-primary font-medium">192.168.1.105</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-tabular-lg text-data-tabular-lg text-primary font-bold">1.2 ms</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Wi-Fi 7 / 10G Link</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">broadcast_on_home</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface">Bonjour Service: _omnidirect._tcp</span>
+</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+              Pairing Key Required
+            </div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">Detected Export Endpoints</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">hard_drive_2</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">Macintosh HD</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">APFS Encrypted Volume • Ready for Target Disk Mode</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant px-space-xs py-space-2xs bg-surface-container rounded">Ready</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">folder_shared</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">Public DropBox</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Read/Write Direct Exchange drop folder</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary px-space-xs py-space-2xs bg-secondary/10 rounded">Direct Drop Ready</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-xs mt-space-base pt-space-sm pl-space-xs bg-surface-container-low/50 -mx-space-base -mb-space-base p-space-base rounded-b-xl">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">key</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Token PIN generated: 489-102</span>
+</div>
+<button class="h-8 px-space-base rounded bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-headline-md flex items-center gap-space-2xs shadow-md" type="button">
+<span class="material-symbols-outlined text-[16px]">phonelink_ring</span>
+<span>Connect &amp; Pair (Enter PIN or Key)</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-base shadow-xl flex flex-col justify-between relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary-fixed"></div>
+<div class="flex flex-col gap-space-base pl-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-base">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary shadow-inner">
+<span class="material-symbols-outlined text-[28px]">dns</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-space-xs py-space-2xs rounded bg-surface-bright text-on-surface font-data-tabular-sm text-data-tabular-sm font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[12px]">database</span> TrueNAS Core / SMB3
+                  </span>
+<span class="px-space-xs py-space-2xs rounded bg-secondary-container text-on-secondary-container font-data-tabular-sm text-data-tabular-sm font-semibold">
+                    10 GbE MULTI-CHANNEL
+                  </span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-semibold mt-space-2xs">SYNOLOGY-VAULT</h3>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant mt-space-2xs">
+<span>nas-cluster-01.lan</span>
+<span>•</span>
+<span class="text-primary font-medium">192.168.1.200</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-tabular-lg text-data-tabular-lg text-secondary font-bold">0.8 ms</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Dual QSFP+ Bonded</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">speed</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface">SMB3 Multi-Channel Active</span>
+</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">
+              1,180 MB/s Max Throughput
+            </div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">Exported Network Shares</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">folder</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">/volume1/archive</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">ZFS Pool Z2 • 64 TB Free • Read/Write Permission</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary px-space-xs py-space-2xs bg-primary/10 rounded">Unmounted</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">/volume2/backups</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Snapshot Pool • 128 TB Free • Snapshot Versioning</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary px-space-xs py-space-2xs bg-primary/10 rounded">Unmounted</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-xs mt-space-base pt-space-sm pl-space-xs bg-surface-container-low/50 -mx-space-base -mb-space-base p-space-base rounded-b-xl">
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span>Protocol: SMB 3.1.1</span>
+<span>•</span>
+<span class="text-secondary">Guest read disabled</span>
+</div>
+<button class="h-8 px-space-base rounded bg-secondary hover:bg-secondary-fixed text-on-secondary font-headline-md text-headline-md flex items-center gap-space-2xs shadow-md" type="button">
+<span class="material-symbols-outlined text-[16px]">folder_copy</span>
+<span>Quick Mount All</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-base shadow-xl flex flex-col justify-between relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-outline"></div>
+<div class="flex flex-col gap-space-base pl-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-base">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-[28px]">terminal</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-space-xs py-space-2xs rounded bg-surface-bright text-on-surface font-data-tabular-sm text-data-tabular-sm font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[12px]">code</span> Ubuntu 24.04 LTS
+                  </span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-highest text-on-surface-variant font-data-tabular-sm text-data-tabular-sm font-semibold">
+                    DISCOVERED • SSH DETECTED
+                  </span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-semibold mt-space-2xs">RENDER-NODE-01</h3>
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant mt-space-2xs">
+<span>render-node-01.renderfarm</span>
+<span>•</span>
+<span class="text-primary font-medium">192.168.1.188</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-tabular-lg text-data-tabular-lg text-on-surface-variant font-bold">1.8 ms</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Port 22 Open</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">security</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface">SSH / SFTP Daemon detected (OpenSSH 9.6p1)</span>
+</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+              ED25519 Fingerprint
+            </div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase tracking-wider">Storage Node Details</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">/mnt/scratch-render</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">XFS Local NVMe • Blender/Octane Cache Root</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant px-space-xs py-space-2xs bg-surface-container rounded">SSHFS Ready</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between opacity-75">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+</div>
+<div class="min-w-0">
+<div class="font-headline-md text-headline-md text-on-surface truncate">/opt/render-pipeline</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Shared Python Toolsets • Read Only</div>
+</div>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-outline px-space-xs py-space-2xs bg-surface-container rounded">Restricted</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-xs mt-space-base pt-space-sm pl-space-xs bg-surface-container-low/50 -mx-space-base -mb-space-base p-space-base rounded-b-xl">
+<div class="flex items-center gap-space-xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">vpn_key</span>
+<span>Identity: ~/.ssh/id_ed25519_render</span>
+</div>
+<button class="h-8 px-space-base rounded bg-surface-bright hover:bg-surface-container-highest text-primary font-headline-md text-headline-md flex items-center gap-space-2xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">key_vertical</span>
+<span>Connect via SSH Key</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-space-base shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">add_link</span>
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold">Manual Connection Direct IP</h4>
+</div>
+<div class="font-data-tabular-sm text-data-tabular-sm text-secondary flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Zero-configuration peer exchange enabled</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-base items-end">
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase">Destination Host or Direct IPv4/IPv6</label>
+<div class="h-9 px-space-sm bg-surface-container rounded-lg flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[16px]">language</span>
+<input class="w-full bg-transparent font-data-tabular-md text-data-tabular-md text-on-surface placeholder-on-surface-variant/40 focus:outline-none" placeholder="192.168.1.xxx or hostname.local" type="text"/>
+</div>
+</div>
+<div class="md:col-span-2 flex flex-col gap-space-2xs">
+<label class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase">Port Number</label>
+<div class="h-9 px-space-sm bg-surface-container rounded-lg flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[16px]">tag</span>
+<input class="w-full bg-transparent font-data-tabular-md text-data-tabular-md text-on-surface focus:outline-none" type="text" value="49152"/>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant uppercase">Transfer Protocol</label>
+<div class="h-9 px-space-sm bg-surface-container rounded-lg flex items-center">
+<select class="w-full bg-transparent font-headline-md text-headline-md text-on-surface focus:outline-none cursor-pointer">
+<option class="bg-surface-container-high" selected="">OmniDirect P2P (UDP Accelerated 10G)</option>
+<option class="bg-surface-container-high">SMB3 / Windows Share (Multi-Channel)</option>
+<option class="bg-surface-container-high">SFTP / SSH Tunnel (Encrypted)</option>
+<option class="bg-surface-container-high">NFSv4.1 Fast Export</option>
+</select>
+</div>
+</div>
+<div class="md:col-span-2">
+<button class="w-full h-9 rounded-lg bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-headline-md flex items-center justify-center gap-space-xs shadow-md transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[18px]">power</span>
+<span>Connect</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm border-t-0">
+<div class="flex items-center gap-space-sm">
+<span>Discovery Status: <strong class="text-on-surface">Listening</strong></span>
+<span>•</span>
+<span>Buffer: <strong class="text-on-surface">Ring Buffer 256MB</strong></span>
+<span>•</span>
+<span>Jumbo Frames: <strong class="text-secondary">Supported (MTU 9000)</strong></span>
+</div>
+<div class="text-right">
+<span class="text-on-surface font-semibold">3 of 4 devices paired</span> • Peer mesh online
+        </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const rescanBtn = document.getElementById('rescan-btn');
+    if (rescanBtn) {
+      rescanBtn.addEventListener('click', () => {
+        const icon = rescanBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.classList.add('animate-spin');
+          setTimeout(() => {
+            icon.classList.remove('animate-spin');
+          }, 1200);
+        }
+      });
+    }
+
+    const toggle = document.getElementById('auto-detect-toggle');
+    if (toggle) {
+      toggle.addEventListener('change', (e) => {
+        console.log('Background scan:', e.target.checked);
+      });
+    }
+  });
+</script></main><footer class="fixed bottom-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-t border-outline-variant/30"><div class="h-function-bar-height w-full px-space-xs grid grid-cols-8 gap-space-xs items-center bg-surface-container-low border-b border-outline-variant/20"><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F3</span><span class="font-body-sm text-body-sm">View</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F4</span><span class="font-body-sm text-body-sm">Edit</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F5</span><span class="font-body-sm text-body-sm">Copy (F-&gt;T)</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F6</span><span class="font-body-sm text-body-sm">Move</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F7</span><span class="font-body-sm text-body-sm">NewFolder</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F8</span><span class="font-body-sm text-body-sm">Delete</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F9</span><span class="font-body-sm text-body-sm">Menu</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F10</span><span class="font-body-sm text-body-sm">Exit</span></button></div><div class="h-statusbar-height w-full px-space-base flex items-center justify-between bg-surface-container-lowest font-data-tabular-sm text-data-tabular-sm text-on-surface-variant"><div class="flex items-center gap-space-base"><span>Selected: 2 items (14.2 MB)</span><span class="text-outline-variant">|</span><span>Free: 482.6 GB / 2.0 TB (NVMe Pool 0)</span></div><div class="flex items-center gap-space-base"><span>Encoding: UTF-8</span><span class="text-outline-variant">|</span><span class="text-secondary font-medium">Socket: ESTABLISHED</span><span>v2.4.0-stable</span></div></div></footer></body></html>

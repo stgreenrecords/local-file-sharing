@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-variant":"#31353c","secondary-fixed-dim":"#4de082","background":"#10141a","surface-container-highest":"#31353c","outline-variant":"#3e484f","primary-fixed-dim":"#7bd0ff","on-primary-container":"#004965","surface-container-low":"#181c22","on-primary":"#00354a","secondary-fixed":"#6dfe9c","tertiary-fixed-dim":"#bdc2ff","on-background":"#dfe2eb","tertiary":"#c5c9ff","on-primary-fixed":"#001e2c","on-tertiary":"#131e8c","secondary-container":"#00b55d","on-secondary-fixed":"#00210c","secondary":"#4de082","surface":"#10141a","tertiary-container":"#a3abff","inverse-surface":"#dfe2eb","on-secondary":"#003919","surface-container-lowest":"#0a0e14","inverse-on-surface":"#2d3137","primary-container":"#38bdf8","surface-container":"#1c2026","surface-dim":"#10141a","on-surface-variant":"#bdc8d1","error-container":"#93000a","outline":"#87929a","tertiary-fixed":"#e0e0ff","on-tertiary-fixed":"#000767","primary":"#8ed5ff","surface-container-high":"#262a31","error":"#ffb4ab","primary-fixed":"#c4e7ff","inverse-primary":"#00668a","on-surface":"#dfe2eb","on-error-container":"#ffdad6","surface-bright":"#353940","on-error":"#690005","on-tertiary-fixed-variant":"#2f3aa3","on-secondary-container":"#003e1c","on-tertiary-container":"#2c37a0","on-secondary-fixed-variant":"#005227","surface-tint":"#7bd0ff","on-primary-fixed-variant":"#004c69"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"8px","pane-gutter":"1px","header-height":"36px","space-sm":"6px","function-bar-height":"32px","space-base":"12px","row-compact":"22px","row-standard":"26px","space-lg":"16px","space-xs":"4px","space-xl":"24px","space-2xs":"2px","statusbar-height":"24px"},"fontFamily":{"data-tabular-sm":["JetBrains Mono"],"body-sm":["Geist"],"headline-xl":["Geist"],"keybind-label":["JetBrains Mono"],"headline-lg":["Geist"],"data-tabular-md":["JetBrains Mono"],"body-md":["Geist"],"data-tabular-lg":["JetBrains Mono"],"headline-md":["Geist"],"body-lg":["Geist"]},"fontSize":{"data-tabular-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.02em","fontWeight":"400"}],"body-sm":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"keybind-label":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-lg":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"data-tabular-md":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"data-tabular-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-md":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["13px",{"lineHeight":"18px","letterSpacing":"-0.005em","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-b border-outline-variant/30"><div class="h-header-height w-full px-space-base flex items-center justify-between border-b border-outline-variant/20 bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs mr-space-sm"><span class="w-3 h-3 rounded-full bg-error/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-amber-400/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span><span class="w-3 h-3 rounded-full bg-secondary/90 hover:opacity-100 transition-opacity cursor-pointer inline-block"></span></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[16px]">terminal</span><span class="font-headline-md text-headline-md text-on-surface font-medium tracking-tight">OmniCommander v2.4 (Cross-Platform Dual-Pane)</span></div></div><div class="flex items-center gap-space-base"><div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded bg-surface-container border border-outline-variant/40"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium tracking-wider uppercase">LAN Active: 10 GbE / Direct Link</span><span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant ml-space-xs">4ms</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-header-height w-full px-space-base flex items-center justify-between bg-surface-container"><nav class="flex items-center h-full gap-space-xs" data-active-classes="bg-surface-container-high text-primary border-b-2 border-primary font-semibold"><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="dual-pane-commander" href="#">Dual Pane Commander</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="transfer-sync-queue" href="#">Transfer &amp; Sync Queue (3)</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="network-discovery" href="#">Network Discovery</a><a class="h-full px-space-base flex items-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" data-path="settings-preferences" href="#">Settings &amp; Preferences</a></nav><div class="flex items-center gap-space-xs text-on-surface-variant font-data-tabular-sm text-data-tabular-sm"><span class="px-space-xs py-space-2xs bg-surface-container-low border border-outline-variant/30 rounded text-on-surface">NODE: local-station-01</span><span class="text-outline">|</span><span>RAM: 3.2/32 GB</span></div></div></header><main class="w-full pt-[72px] pb-[56px] bg-surface flex-1 min-h-[calc(100vh-128px)]"><div class="flex flex-col w-full">
+<!-- Telemetry Overview Banner -->
+<section class="p-space-lg bg-surface-container-low shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md mb-space-base">
+<!-- Metric 1: Speed -->
+<div class="p-space-base bg-surface-container rounded-lg flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="uppercase tracking-wider">Throughput</span>
+<span class="flex items-center gap-space-2xs text-secondary">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+            10GbE LAN Link
+          </span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-data-tabular-lg text-headline-xl text-primary font-bold tracking-tight">892</span>
+<span class="font-data-tabular-md text-data-tabular-md text-on-surface-variant">MB/s</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span>Direct RDMA Pipe</span>
+<span class="text-secondary font-medium">94.8% Cap</span>
+</div>
+<div class="absolute -right-6 -bottom-6 w-20 h-20 bg-primary/5 rounded-full blur-xl pointer-events-none"></div>
+</div>
+<!-- Metric 2: Progress -->
+<div class="p-space-base bg-surface-container rounded-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="uppercase tracking-wider">Payload Volume</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary">68% Synchronized</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-data-tabular-lg text-headline-xl text-on-surface font-bold tracking-tight">44.2</span>
+<span class="font-data-tabular-md text-data-tabular-md text-on-surface-variant">/ 65.0 GB</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span>Batch items: 3 remaining</span>
+<span class="text-on-surface">Total: 6 files</span>
+</div>
+</div>
+<!-- Metric 3: ETA -->
+<div class="p-space-base bg-surface-container rounded-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="uppercase tracking-wider">Estimated Time</span>
+<span class="material-symbols-outlined text-primary text-[14px]">timer</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-data-tabular-lg text-headline-xl text-secondary font-bold tracking-tight">00:00:24</span>
+<span class="font-data-tabular-md text-data-tabular-md text-on-surface-variant">rem.</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span>Peak Jitter: 0.12ms</span>
+<span class="text-secondary font-medium">Zero Packet Loss</span>
+</div>
+</div>
+<!-- Metric 4: Streams -->
+<div class="p-space-base bg-surface-container rounded-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="uppercase tracking-wider">Socket Concurrency</span>
+<span class="flex items-center gap-space-2xs text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            Zero-Copy direct
+          </span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-data-tabular-lg text-headline-xl text-on-surface font-bold tracking-tight">16</span>
+<span class="font-data-tabular-md text-data-tabular-md text-on-surface-variant">Parallel Threads</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span>TCP Window: 4096 KB</span>
+<span class="text-on-surface">Queue depth: Normal</span>
+</div>
+</div>
+</div>
+<!-- Aggregate Progress Bar & Speed Limit Selector -->
+<div class="p-space-base bg-surface-container rounded-lg shadow-sm">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<button class="h-7 px-space-base rounded bg-primary text-on-primary font-headline-md text-body-sm font-semibold flex items-center gap-space-xs hover:bg-primary-fixed-dim transition-colors shadow-sm" id="pause-toggle-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">pause</span>
+<span id="pause-btn-text">Pause All</span>
+</button>
+<button class="h-7 px-space-base rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-body-sm font-medium flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">stop</span>
+<span>Cancel Batch</span>
+</button>
+</div>
+<span class="text-on-surface-variant font-data-tabular-sm text-data-tabular-sm ml-space-xs">Pool: NVMe-01 → NVMe-Striped</span>
+</div>
+<!-- Dynamic Throttle Radio Pills -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest p-space-2xs rounded">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant px-space-xs">Limit:</span>
+<button class="px-space-sm py-space-2xs rounded bg-surface-container-high text-primary font-data-tabular-sm text-data-tabular-sm font-semibold shadow-sm" type="button">Unlimited</button>
+<button class="px-space-sm py-space-2xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-data-tabular-sm text-data-tabular-sm transition-colors" type="button">10 Gbps</button>
+<button class="px-space-sm py-space-2xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-data-tabular-sm text-data-tabular-sm transition-colors" type="button">1 Gbps</button>
+<button class="px-space-sm py-space-2xs rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-data-tabular-sm text-data-tabular-sm transition-colors" type="button">Custom</button>
+</div>
+</div>
+<!-- Main Animated Progress Track -->
+<div class="w-full h-3 bg-surface-container-lowest rounded overflow-hidden relative shadow-inner">
+<div class="h-full bg-gradient-to-r from-primary-container via-primary to-secondary transition-all duration-300 rounded" style="width: 68%;"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse pointer-events-none"></div>
+</div>
+<div class="flex justify-between items-center mt-space-2xs font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">
+<span>68.0% Completed</span>
+<span>20.8 GB remaining on session queue</span>
+</div>
+</div>
+</section>
+<!-- Main Active Content Area -->
+<div class="p-space-lg space-y-space-lg">
+<!-- Active File Transfer HUD Block -->
+<div class="bg-surface-container-low rounded-xl p-space-base shadow-sm">
+<div class="flex items-center justify-between pb-space-sm mb-space-base">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Currently Active Stream</h2>
+<span class="font-data-tabular-sm text-data-tabular-sm px-space-xs py-space-2xs rounded bg-surface-container-high text-primary">Thread Ring 04</span>
+</div>
+<div class="flex items-center gap-space-base">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-2xs rounded">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">SHA-256 Live Hash Verified</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Transfer Buffer: 64MB Direct</span>
+</div>
+</div>
+<!-- Detailed Path Breakdown Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md mb-space-base">
+<!-- Source -->
+<div class="p-space-base bg-surface-container rounded-lg">
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm mb-space-xs">
+<span class="flex items-center gap-space-xs uppercase text-primary font-semibold">
+<span class="material-symbols-outlined text-[14px]">desktop_mac</span>
+              Source Node (macOS Sequoia)
+            </span>
+<span class="text-on-surface-variant font-data-tabular-sm">Posix APFS</span>
+</div>
+<p class="font-data-tabular-sm text-data-tabular-sm text-on-surface break-all bg-surface-container-lowest p-space-xs rounded">
+            macOS:/Users/alexander/Projects/Client-Media-Assets/4K_B-Roll_Footage/<span class="text-primary font-medium">Reel_04_ProRes422HQ.mov</span>
+</p>
+</div>
+<!-- Target -->
+<div class="p-space-base bg-surface-container rounded-lg">
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm mb-space-xs">
+<span class="flex items-center gap-space-xs uppercase text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+              Target Node (Windows 11 Rig)
+            </span>
+<span class="text-on-surface-variant font-data-tabular-sm">ReFS v3.4 Stripe</span>
+</div>
+<p class="font-data-tabular-sm text-data-tabular-sm text-on-surface break-all bg-surface-container-lowest p-space-xs rounded">
+            WIN-STUDIO-RIG:D:\PostProduction\Incoming_From_Mac\4K_B-Roll_Footage\<span class="text-secondary font-medium">Reel_04_ProRes422HQ.mov</span>
+</p>
+</div>
+</div>
+<!-- File Stream Sub-Progress & Live Speed -->
+<div class="bg-surface-container p-space-base rounded-lg">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-xs mb-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-body-md text-on-surface font-semibold">Reel_04_ProRes422HQ.mov</span>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">14.2 GB / 18.2 GB (78%)</span>
+</div>
+<div class="flex items-center gap-space-base font-data-tabular-sm text-data-tabular-sm">
+<span class="text-secondary font-semibold">940 MB/s</span>
+<span class="text-on-surface-variant">|</span>
+<span class="text-primary font-medium">ETA: 4s</span>
+<span class="text-on-surface-variant">|</span>
+<span class="text-on-surface">Chunks: 1,820 / 2,329</span>
+</div>
+</div>
+<div class="w-full h-2 bg-surface-container-lowest rounded overflow-hidden relative">
+<div class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-150" style="width: 78%;"></div>
+</div>
+</div>
+</div>
+<!-- Dual Partition Lists: Queued and Completed -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Staged Queue Table -->
+<div class="bg-surface-container-low rounded-xl p-space-base shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-base">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">pending_actions</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Pending Sync Queue</h3>
+<span class="font-data-tabular-sm text-data-tabular-sm px-space-xs rounded bg-surface-container text-on-surface-variant font-medium">3</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">15.4 GB Staged</span>
+</div>
+<div class="space-y-space-xs font-body-md text-body-md">
+<!-- Row 1 -->
+<div class="p-space-sm bg-surface-container hover:bg-surface-bright rounded flex items-center justify-between transition-colors">
+<div class="flex items-center gap-space-sm min-w-0 pr-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px]">audio_file</span>
+<div class="truncate min-w-0">
+<div class="text-on-surface truncate font-medium">Audio_Masters_Stems/5.1_Surround_Master.wav</div>
+<div class="text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">Uncompressed LPCM • 96kHz 24-bit</div>
+</div>
+</div>
+<div class="flex items-center gap-space-base shrink-0">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface font-medium">4.2 GB</span>
+<span class="px-space-xs py-space-2xs rounded bg-primary/20 text-primary font-data-tabular-sm text-data-tabular-sm font-semibold">Queued (Next)</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="p-space-sm bg-surface-container hover:bg-surface-bright rounded flex items-center justify-between transition-colors">
+<div class="flex items-center gap-space-sm min-w-0 pr-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px]">new_window</span>
+<div class="truncate min-w-0">
+<div class="text-on-surface truncate font-medium">Audio_Masters_Stems/Dialogue_Isolated.stem</div>
+<div class="text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">Stems Multi-channel container</div>
+</div>
+</div>
+<div class="flex items-center gap-space-base shrink-0">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface font-medium">2.8 GB</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-high text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">Queued</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="p-space-sm bg-surface-container hover:bg-surface-bright rounded flex items-center justify-between transition-colors">
+<div class="flex items-center gap-space-sm min-w-0 pr-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">movie</span>
+<div class="truncate min-w-0">
+<div class="text-on-surface truncate font-medium">Final_Cut_Export_v04.mov</div>
+<div class="text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">Apple ProRes QuickTime Container</div>
+</div>
+</div>
+<div class="flex items-center gap-space-base shrink-0">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface font-medium">8.4 GB</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-high text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">Queued</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-base pt-space-sm flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">swap_vert</span>
+<span>Priority Queue: Auto-FIFO</span>
+</div>
+<button class="hover:text-primary transition-colors" type="button">Clear All Pending</button>
+</div>
+</div>
+<!-- Completed Table -->
+<div class="bg-surface-container-low rounded-xl p-space-base shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-base">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">task_alt</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Completed Transations</h3>
+<span class="font-data-tabular-sm text-data-tabular-sm px-space-xs rounded bg-secondary/20 text-secondary font-medium">2 Verified</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">24.2 GB Synced</span>
+</div>
+<div class="space-y-space-xs font-body-md text-body-md">
+<!-- Completed Item A -->
+<div class="p-space-sm bg-surface-container hover:bg-surface-bright rounded flex items-center justify-between transition-colors">
+<div class="flex items-center gap-space-sm min-w-0 pr-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<div class="truncate min-w-0">
+<div class="text-on-surface truncate font-medium">Reel_01_ProRes422HQ.mov</div>
+<div class="text-secondary font-data-tabular-sm text-data-tabular-sm flex items-center gap-space-2xs">
+<span>910 MB/s sustained</span>
+<span>•</span>
+<span>Checksum OK [4e1a]</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-base shrink-0">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface font-medium">12.4 GB</span>
+<span class="px-space-xs py-space-2xs rounded bg-secondary/10 text-secondary font-data-tabular-sm text-data-tabular-sm font-semibold">Done (14s)</span>
+</div>
+</div>
+<!-- Completed Item B -->
+<div class="p-space-sm bg-surface-container hover:bg-surface-bright rounded flex items-center justify-between transition-colors">
+<div class="flex items-center gap-space-sm min-w-0 pr-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<div class="truncate min-w-0">
+<div class="text-on-surface truncate font-medium">Reel_02_ProRes422HQ.mov</div>
+<div class="text-secondary font-data-tabular-sm text-data-tabular-sm flex items-center gap-space-2xs">
+<span>890 MB/s sustained</span>
+<span>•</span>
+<span>Checksum OK [9d8f]</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-base shrink-0">
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface font-medium">11.8 GB</span>
+<span class="px-space-xs py-space-2xs rounded bg-secondary/10 text-secondary font-data-tabular-sm text-data-tabular-sm font-semibold">Done (13s)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-base pt-space-sm flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">history</span>
+<span>Audit log recorded</span>
+</div>
+<button class="hover:text-secondary transition-colors" type="button">Export Transfer Log (.json)</button>
+</div>
+</div>
+</div>
+<!-- Bottom Waveform & Conflict Policy Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Sustained Network Saturation Waveform Graph (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-container-low rounded-xl p-space-base shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">monitoring</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Throughput Waveform Telemetry</h3>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                TX Stream
+              </span>
+<span class="flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                ACK Flow
+              </span>
+<span>10 GbE Line Limit: 1,180 MB/s</span>
+</div>
+</div>
+<!-- Inline SVG Throughput Curve -->
+<div class="w-full h-32 bg-surface-container-lowest rounded-lg p-space-sm flex flex-col justify-end relative overflow-hidden">
+<svg class="w-full h-full text-primary" fill="none" preserveaspectratio="none" viewbox="0 0 600 120">
+<defs>
+<lineargradient id="streamGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4"></stop>
+<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="ackGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4de082" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#4de082" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Horizon guidelines -->
+<line stroke="#31353c" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="600" y1="20" y2="20"></line>
+<line stroke="#31353c" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="600" y1="60" y2="60"></line>
+<line stroke="#31353c" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="600" y1="100" y2="100"></line>
+<!-- Primary Area & Curve -->
+<path d="M0,110 Q50,70 100,50 T200,28 T300,25 T400,22 T500,20 T600,18 L600,120 L0,120 Z" fill="url(#streamGrad)"></path>
+<path d="M0,110 Q50,70 100,50 T200,28 T300,25 T400,22 T500,20 T600,18" stroke="#38bdf8" stroke-linecap="round" stroke-width="2"></path>
+<!-- Secondary Ack Area & Curve -->
+<path d="M0,115 Q60,95 120,80 T240,65 T360,60 T480,58 T600,55 L600,120 L0,120 Z" fill="url(#ackGrad)"></path>
+<path d="M0,115 Q60,95 120,80 T240,65 T360,60 T480,58 T600,55" stroke="#4de082" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+<div class="absolute top-2 left-3 font-data-tabular-sm text-data-tabular-sm text-primary font-semibold">Current: 940 MB/s (Saturation Peak: 982 MB/s)</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm mt-space-sm">
+<span>T - 60s</span>
+<span>T - 40s</span>
+<span>T - 20s</span>
+<span class="text-primary font-medium">Realtime [0s]</span>
+</div>
+</div>
+<!-- File Conflict Resolution & Policy Controls (5 Cols) -->
+<div class="lg:col-span-5 bg-surface-container-low rounded-xl p-space-base shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs pb-space-sm mb-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">rule_settings</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Collision &amp; Conflict Policy</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-base">
+            Automated behavior when identical target paths or hashes already exist on destination storage volumes.
+          </p>
+<div class="space-y-space-xs" id="conflict-policies">
+<label class="flex items-center justify-between p-space-sm rounded bg-surface-container cursor-pointer hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 text-primary bg-surface-container-lowest focus:ring-primary" name="conflict" type="radio"/>
+<span class="font-headline-md text-body-md text-on-surface">Ask / Prompt Interactively</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">Default UI</span>
+</label>
+<label class="flex items-center justify-between p-space-sm rounded bg-surface-container cursor-pointer hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 text-primary bg-surface-container-lowest focus:ring-primary" name="conflict" type="radio"/>
+<span class="font-headline-md text-body-md text-on-surface">Overwrite If Source Newer</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-on-surface-variant">mtime delta</span>
+</label>
+<label class="flex items-center justify-between p-space-sm rounded bg-surface-container cursor-pointer hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 text-primary bg-surface-container-lowest focus:ring-primary" name="conflict" type="radio"/>
+<span class="font-headline-md text-body-md text-on-surface">Keep Both (Append _macOS)</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-secondary font-medium">Safe Mode</span>
+</label>
+<label class="flex items-center justify-between p-space-sm rounded bg-surface-container cursor-pointer hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 text-primary bg-surface-container-lowest focus:ring-primary" name="conflict" type="radio"/>
+<span class="font-headline-md text-body-md text-on-surface">Skip Identical by Checksum</span>
+</div>
+<span class="font-data-tabular-sm text-data-tabular-sm text-primary font-medium">CRC32 / SHA</span>
+</label>
+</div>
+</div>
+<div class="mt-space-base pt-space-sm flex items-center justify-between text-on-surface-variant font-data-tabular-sm text-data-tabular-sm">
+<span class="flex items-center gap-space-2xs text-secondary">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+            Atomic writes engaged
+          </span>
+<button class="text-primary font-medium hover:underline" type="button">Apply To All Jobs</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      // Toggle button micro-interaction
+      const pauseBtn = document.getElementById('pause-toggle-btn');
+      const pauseText = document.getElementById('pause-btn-text');
+      let isPaused = false;
+
+      if (pauseBtn && pauseText) {
+        pauseBtn.addEventListener('click', function() {
+          isPaused = !isPaused;
+          if (isPaused) {
+            pauseText.textContent = 'Resume All';
+            pauseBtn.classList.remove('bg-primary', 'text-on-primary');
+            pauseBtn.classList.add('bg-secondary', 'text-on-secondary');
+          } else {
+            pauseText.textContent = 'Pause All';
+            pauseBtn.classList.remove('bg-secondary', 'text-on-secondary');
+            pauseBtn.classList.add('bg-primary', 'text-on-primary');
+          }
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="fixed bottom-0 left-0 right-0 z-50 flex flex-col bg-surface-container-lowest border-t border-outline-variant/30"><div class="h-function-bar-height w-full px-space-xs grid grid-cols-8 gap-space-xs items-center bg-surface-container-low border-b border-outline-variant/20"><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F3</span><span class="font-body-sm text-body-sm">View</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F4</span><span class="font-body-sm text-body-sm">Edit</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F5</span><span class="font-body-sm text-body-sm">Copy (F-&gt;T)</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F6</span><span class="font-body-sm text-body-sm">Move</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F7</span><span class="font-body-sm text-body-sm">NewFolder</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F8</span><span class="font-body-sm text-body-sm">Delete</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F9</span><span class="font-body-sm text-body-sm">Menu</span></button><button class="h-6 px-space-sm flex items-center justify-center gap-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/40 transition-colors" type="button"><span class="font-keybind-label text-keybind-label text-primary">F10</span><span class="font-body-sm text-body-sm">Exit</span></button></div><div class="h-statusbar-height w-full px-space-base flex items-center justify-between bg-surface-container-lowest font-data-tabular-sm text-data-tabular-sm text-on-surface-variant"><div class="flex items-center gap-space-base"><span>Selected: 2 items (14.2 MB)</span><span class="text-outline-variant">|</span><span>Free: 482.6 GB / 2.0 TB (NVMe Pool 0)</span></div><div class="flex items-center gap-space-base"><span>Encoding: UTF-8</span><span class="text-outline-variant">|</span><span class="text-secondary font-medium">Socket: ESTABLISHED</span><span>v2.4.0-stable</span></div></div></footer></body></html>

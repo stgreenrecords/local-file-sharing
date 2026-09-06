@@ -1,0 +1,33 @@
+appId: dev.omnicommander.app
+productName: OmniCommander
+directories:
+  buildResources: build
+  output: release
+files:
+  - out/**
+asarUnpack:
+  - resources/**
+win:
+  target:
+    - target: nsis
+      arch: [x64, arm64]
+  artifactName: ${productName}-${version}-${arch}-setup.${ext}
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: false
+mac:
+  category: public.app-category.utilities
+  target:
+    - target: dmg
+      arch: [universal]
+    - target: zip
+      arch: [universal]
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    NSLocalNetworkUsageDescription: OmniCommander discovers other machines running OmniCommander on your local network so you can browse and copy files between them.
+    NSBonjourServices:
+      - _omnidirect._tcp
+dmg:
+  artifactName: ${productName}-${version}.${ext}
